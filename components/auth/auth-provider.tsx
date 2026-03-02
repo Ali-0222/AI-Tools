@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import {
+  Unsubscribe,
   User,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -54,7 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    let unsubscribe = () => undefined;
+    let unsubscribe: Unsubscribe = () => {};
 
     void (async () => {
       const auth = await getFirebaseAuth();

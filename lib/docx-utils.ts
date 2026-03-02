@@ -11,7 +11,8 @@ async function inflateRaw(data: Uint8Array) {
     throw new Error("This browser does not support DOCX extraction.");
   }
 
-  const stream = new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  const rawBytes = new Uint8Array(data);
+  const stream = new Blob([rawBytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
   const response = new Response(stream);
   const buffer = await response.arrayBuffer();
   return new Uint8Array(buffer);

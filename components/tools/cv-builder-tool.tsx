@@ -128,7 +128,8 @@ export function CvBuilderTool() {
         layout: selectedTemplate.layout,
         form
       });
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const pdfBytes = bytes instanceof Uint8Array ? new Uint8Array(bytes) : new Uint8Array(bytes);
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;

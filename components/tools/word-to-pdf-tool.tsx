@@ -91,7 +91,8 @@ export function WordToPdfTool() {
       });
 
       const bytes = await pdf.save();
-      const blob = new Blob([bytes], { type: "application/pdf" });
+      const pdfBytes = bytes instanceof Uint8Array ? new Uint8Array(bytes) : new Uint8Array(bytes);
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
       setPdfBlob(blob);
       setTextPreview(text.slice(0, 400));
     } catch {

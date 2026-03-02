@@ -27,7 +27,9 @@ export function PdfMergeTool() {
       }
 
       const mergedBytes = await merged.save();
-      const blob = new Blob([mergedBytes], { type: "application/pdf" });
+      const pdfBytes =
+        mergedBytes instanceof Uint8Array ? new Uint8Array(mergedBytes) : new Uint8Array(mergedBytes);
+      const blob = new Blob([pdfBytes], { type: "application/pdf" });
       setOutputBlob(blob);
       setStatus("PDFs merged successfully.");
     } catch {

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "clean": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$repo=(Resolve-Path .).Path; Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -like ('*' + $repo + '*next*') } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }; Start-Sleep -Milliseconds 500; if (Test-Path .next) { Remove-Item -Recurse -Force .next }\"",
+    "clean:soft": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }\"",
+    "clean:force": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$repo=(Resolve-Path .).Path; Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'node.exe' -and $_.CommandLine -like ('*' + $repo + '*next*') } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }; Start-Sleep -Milliseconds 500; if (Test-Path .next) { Remove-Item -Recurse -Force .next }\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

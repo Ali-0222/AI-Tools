@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { siteTools } from "@/lib/site-data";
+import { siteConfig } from "@/lib/site-config";
 
-const siteUrl = "https://www.freefasttools.com";
+const siteUrl = siteConfig.url;
 
 export function getToolBySlug(slug: string) {
   return siteTools.find((tool) => tool.slug === slug);

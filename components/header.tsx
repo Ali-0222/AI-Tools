@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/auth/auth-provider";
+import { siteConfig } from "@/lib/site-config";
 import { siteTools } from "@/lib/site-data";
 
 const links = [
@@ -26,7 +27,7 @@ export function Header() {
     <header className="border-b border-[var(--border)] bg-white">
       <div className="container-shell flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
         <Link href="/" className="text-2xl font-bold tracking-tight" onClick={closeMenus}>
-          Easy Web Tools
+          {siteConfig.name}
         </Link>
         <nav aria-label="Primary" className="flex-1">
           <div className="hidden items-center justify-between md:flex">

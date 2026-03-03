@@ -1,10 +1,11 @@
 import { Metadata } from "next";
 import { StaticPage } from "@/components/static-page";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Read the privacy policy for Easy Web Tools, including client-side processing, cookies, and ad disclosure details.",
+    `Read the privacy policy for ${siteConfig.name}, including client-side processing, cookies, and ad disclosure details.`,
   alternates: {
     canonical: "/privacy-policy"
   }
@@ -14,7 +15,7 @@ export default function PrivacyPolicyPage() {
   return (
     <StaticPage
       title="Privacy Policy"
-      description="Easy Web Tools aims to minimize data collection and process supported tool actions directly in the browser."
+      description={`${siteConfig.name} aims to minimize data collection and process supported tool actions directly in the browser.`}
     >
       <p>
         Most tools on this website work fully on the client side. Files and text entered into supported tools are processed inside your browser and are not stored on our servers.

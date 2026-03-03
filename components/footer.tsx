@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { siteConfig } from "@/lib/site-config";
 
 export function Footer() {
   return (
     <footer className="mt-12 border-t border-[var(--border)] bg-white">
       <div className="container-shell grid gap-6 py-8 md:grid-cols-3">
         <div>
-          <h2 className="text-lg font-bold">Easy Web Tools</h2>
+          <h2 className="text-lg font-bold">{siteConfig.name}</h2>
           <p className="mt-2 text-sm text-[var(--muted)]">
             Free browser-based tools for images, text, JSON, health calculators, and PDFs.
           </p>

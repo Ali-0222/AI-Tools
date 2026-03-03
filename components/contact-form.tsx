@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { ToolButton } from "@/components/tool-shared";
+import { siteConfig } from "@/lib/site-config";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -40,10 +41,10 @@ export function ContactForm() {
       <div className="flex flex-wrap gap-3">
         <ToolButton type="submit">Send message</ToolButton>
         <a
-          href="mailto:hello@freefasttools.com"
+          href={`mailto:${siteConfig.email}`}
           className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-semibold"
         >
-          hello@freefasttools.com
+          {siteConfig.email}
         </a>
       </div>
       {submitted ? (

@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { ContactForm } from "@/components/contact-form";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Contact Easy Web Tools with feedback, suggestions, or general questions through a simple contact form.",
+    `Contact ${siteConfig.name} with feedback, suggestions, or general questions through a simple contact form.`,
   alternates: {
     canonical: "/contact"
   }

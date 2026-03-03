@@ -3,12 +3,13 @@ import "./globals.css";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.freefasttools.com"),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Easy Web Tools",
-    template: "%s | Easy Web Tools"
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`
   },
   description:
     "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
@@ -21,15 +22,15 @@ export const metadata: Metadata = {
     "seo tools website"
   ],
   openGraph: {
-    title: "Easy Web Tools",
+    title: siteConfig.name,
     description:
       "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
     type: "website",
-    url: "https://www.freefasttools.com"
+    url: siteConfig.url
   },
   twitter: {
     card: "summary_large_image",
-    title: "Easy Web Tools",
+    title: siteConfig.name,
     description:
       "Fast, mobile-friendly online tools with privacy-focused client-side processing."
   },

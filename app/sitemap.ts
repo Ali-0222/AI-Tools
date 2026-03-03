@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { blogPosts, siteTools } from "@/lib/site-data";
+import { siteConfig } from "@/lib/site-config";
 
-const baseUrl = "https://www.freefasttools.com";
+const baseUrl = siteConfig.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = ["", "/tools", "/about", "/contact", "/privacy-policy", "/disclaimer", "/blog"];

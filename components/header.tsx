@@ -32,6 +32,15 @@ export function Header() {
         <nav aria-label="Primary" className="flex-1">
           <div className="hidden items-center justify-between md:flex">
             <ul className="flex flex-wrap items-center gap-6 text-sm text-[var(--muted)]">
+              <li>
+                <Link
+                  href="/"
+                  onClick={closeMenus}
+                  className="font-bold transition hover:text-[var(--foreground)]"
+                >
+                  Home
+                </Link>
+              </li>
               <li
                 className="relative"
                 onMouseEnter={() => setDesktopOpen(true)}
@@ -40,7 +49,8 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => setDesktopOpen((current) => !current)}
-                  className="inline-flex items-center gap-2 rounded-xl px-3 py-2 font-semibold text-[var(--foreground)] transition hover:bg-[var(--surface-strong)]"
+                  className="inline-flex appearance-none items-center gap-2 bg-transparent p-0 text-[var(--foreground)] transition hover:text-[var(--foreground)]"
+                  style={{ fontWeight: 700 }}
                   aria-expanded={desktopOpen}
                   aria-haspopup="menu"
                 >
@@ -95,12 +105,12 @@ export function Header() {
                   </div>
                 ) : null}
               </li>
-              {links.map((link) => (
+              {links.filter((link) => link.href !== "/").map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     onClick={closeMenus}
-                    className="font-semibold transition hover:text-[var(--foreground)]"
+                    className="font-bold transition hover:text-[var(--foreground)]"
                   >
                     {link.label}
                   </Link>
@@ -140,24 +150,24 @@ export function Header() {
 
           <div className="md:hidden">
             <div className="flex flex-wrap gap-3 text-sm text-[var(--muted)]">
-              <Link href="/" onClick={closeMenus} className="font-semibold transition hover:text-[var(--foreground)]">
+              <Link href="/" onClick={closeMenus} className="font-bold transition hover:text-[var(--foreground)]">
                 Home
               </Link>
-              <Link href="/blog" onClick={closeMenus} className="font-semibold transition hover:text-[var(--foreground)]">
+              <Link href="/blog" onClick={closeMenus} className="font-bold transition hover:text-[var(--foreground)]">
                 Blog
               </Link>
-              <Link href="/about" onClick={closeMenus} className="font-semibold transition hover:text-[var(--foreground)]">
+              <Link href="/about" onClick={closeMenus} className="font-bold transition hover:text-[var(--foreground)]">
                 About
               </Link>
-              <Link href="/contact" onClick={closeMenus} className="font-semibold transition hover:text-[var(--foreground)]">
+              <Link href="/contact" onClick={closeMenus} className="font-bold transition hover:text-[var(--foreground)]">
                 Contact
               </Link>
               {ready && user ? (
-                <Link href="/profile" onClick={closeMenus} className="font-semibold text-[var(--foreground)]">
+                <Link href="/profile" onClick={closeMenus} className="font-bold text-[var(--foreground)]">
                   Profile
                 </Link>
               ) : (
-                <Link href="/auth/login" onClick={closeMenus} className="font-semibold text-[var(--foreground)]">
+                <Link href="/auth/login" onClick={closeMenus} className="font-bold text-[var(--foreground)]">
                   Login
                 </Link>
               )}

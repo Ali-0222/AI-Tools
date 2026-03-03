@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteLogo } from "@/components/site-logo";
 import { siteTools } from "@/lib/site-data";
 
 export function Hero() {
@@ -8,6 +9,9 @@ export function Hero() {
     <section className="card overflow-hidden p-6 md:p-10">
       <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
         <div>
+          <div className="mb-5">
+            <SiteLogo href="/" className="pointer-events-none" />
+          </div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
             Fast Online Utility Suite
           </p>

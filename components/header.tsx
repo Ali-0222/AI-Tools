@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/auth/auth-provider";
-import { siteConfig } from "@/lib/site-config";
+import { SiteLogo } from "@/components/site-logo";
 import { siteTools } from "@/lib/site-data";
 
 const links = [
@@ -26,9 +26,9 @@ export function Header() {
   return (
     <header className="border-b border-[var(--border)] bg-white">
       <div className="container-shell flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
-        <Link href="/" className="text-2xl font-bold tracking-tight" onClick={closeMenus}>
-          {siteConfig.name}
-        </Link>
+        <div onClick={closeMenus}>
+          <SiteLogo className="self-start" />
+        </div>
         <nav aria-label="Primary" className="flex-1">
           <div className="hidden items-center justify-between md:flex">
             <ul className="flex flex-wrap items-center gap-6 text-sm text-[var(--muted)]">

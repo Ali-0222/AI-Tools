@@ -24,7 +24,8 @@ export function Hero() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/tools"
-              className="rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-strong)]"
+              className="rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--surface)] transition hover:bg-[var(--accent-strong)] hover:text-[var(--surface)]"
+              style={{ color: "var(--surface)" }}
             >
               Explore tools
             </Link>

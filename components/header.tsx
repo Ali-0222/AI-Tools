@@ -128,7 +128,8 @@ export function Header() {
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="rounded-xl bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white"
+                    className="rounded-xl bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--surface)] hover:text-[var(--surface)]"
+                    style={{ color: "var(--surface)" }}
                   >
                     Sign up
                   </Link>

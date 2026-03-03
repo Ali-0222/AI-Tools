@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { AuthForm } from "@/components/auth/auth-form";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Login",
-  description: "Login to access your saved CV templates and profile."
-};
+  description: "Login to access your saved CV templates and profile.",
+  path: "/auth/login",
+  noIndex: true
+});
 
 export default function LoginPage() {
   return (

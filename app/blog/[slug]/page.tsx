@@ -2,6 +2,12 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { blogPosts } from "@/lib/site-data";
+import { SchemaScript } from "@/components/schema-script";
+import {
+  buildBlogPostMetadata,
+  buildBlogPostingSchema,
+  buildBreadcrumbSchema
+} from "@/lib/seo";
 
 const postBodies: Record<string, string[]> = {
   "how-to-compress-images-for-faster-web-pages": [
@@ -25,21 +31,7 @@ type Params = Promise<{ slug: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
-
-  if (!post) {
-    return {
-      title: "Blog Post Not Found"
-    };
-  }
-
-  return {
-    title: post.title,
-    description: post.description,
-    alternates: {
-      canonical: `/blog/${post.slug}`
-    }
-  };
+  return buildBlogPostMetadata(slug);
 }
 
 export default async function BlogDetailPage({ params }: { params: Params }) {
@@ -53,6 +45,20 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
 
   return (
     <main className="container-shell py-8 md:py-12">
+      <SchemaScript
+        schema={[
+          buildBlogPostingSchema({
+            slug: post.slug,
+            title: post.title,
+            description: post.description
+          }),
+          buildBreadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` }
+          ])
+        ]}
+      />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <article className="card prose-copy p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">{post.category}</p>

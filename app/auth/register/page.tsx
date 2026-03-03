@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { AuthForm } from "@/components/auth/auth-form";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Create Account",
-  description: "Create an account to save CV templates and resume data to your profile."
-};
+  description: "Create an account to save CV templates and resume data to your profile.",
+  path: "/auth/register",
+  noIndex: true
+});
 
 export default function RegisterPage() {
   return (

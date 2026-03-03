@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typegen": "next typegen",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
   },

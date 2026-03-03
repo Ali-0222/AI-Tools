@@ -3,6 +3,8 @@ import "./globals.css";
 import { AuthProvider } from "@/components/auth/auth-provider";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { SchemaScript } from "@/components/schema-script";
+import { buildOrganizationSchema, buildWebsiteSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -11,28 +13,29 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`
   },
-  description:
-    "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
-  keywords: [
-    "free online tools",
-    "image compressor",
-    "word counter",
-    "json formatter",
-    "pdf merge",
-    "seo tools website"
-  ],
+  description: "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
+  applicationName: siteConfig.name,
   openGraph: {
     title: siteConfig.name,
-    description:
-      "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
+    description: "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
     type: "website",
-    url: siteConfig.url
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
-    description:
-      "Fast, mobile-friendly online tools with privacy-focused client-side processing."
+    description: "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
+    images: ["/twitter-image"]
   },
   alternates: {
     canonical: "/"
@@ -47,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <SchemaScript schema={[buildOrganizationSchema(), buildWebsiteSchema()]} />
         <AuthProvider>
           <Header />
           {children}

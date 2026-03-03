@@ -1,20 +1,31 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
+import { SchemaScript } from "@/components/schema-script";
 import { blogPosts } from "@/lib/site-data";
+import { buildCollectionPageSchema, buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Read blog articles about image optimization, browser-based tools, JSON formatting, and online productivity topics.",
-  alternates: {
-    canonical: "/blog"
-  }
-};
+const title = "Blog";
+const description =
+  "Read blog articles about image optimization, browser-based tools, JSON formatting, and online productivity topics.";
+
+export const metadata: Metadata = buildMetadata({
+  title,
+  description,
+  path: "/blog"
+});
 
 export default function BlogPage() {
   return (
     <main className="container-shell py-8 md:py-12">
+      <SchemaScript
+        schema={buildCollectionPageSchema({
+          title,
+          description,
+          path: "/blog",
+          itemUrls: blogPosts.map((post) => `/blog/${post.slug}`)
+        })}
+      />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <section className="card p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">Blog</p>

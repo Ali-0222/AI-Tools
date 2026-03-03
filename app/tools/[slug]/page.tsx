@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { SchemaScript } from "@/components/schema-script";
 import { ToolLayout } from "@/components/tool-layout";
-import { buildToolMetadata, buildToolSchema } from "@/lib/seo";
+import { buildBreadcrumbSchema, buildToolMetadata, buildToolSchema } from "@/lib/seo";
 import { siteTools, type ToolKey } from "@/lib/site-data";
 import { renderToolBySlug } from "@/lib/tool-renderers";
 
@@ -27,6 +27,13 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
   return (
     <>
       <SchemaScript schema={buildToolSchema(slug)} />
+      <SchemaScript
+        schema={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Tools", path: "/tools" },
+          { name: tool.name, path: `/tools/${tool.slug}` }
+        ])}
+      />
       <ToolLayout title={tool.pageTitle} description={tool.pageDescription} tips={tool.tips}>
         {renderToolBySlug(slug)}
       </ToolLayout>

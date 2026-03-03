@@ -1,23 +1,41 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
+import { SchemaScript } from "@/components/schema-script";
 import { Hero } from "@/components/hero";
 import { SectionHeading } from "@/components/section-heading";
 import { ToolCard } from "@/components/tool-card";
 import { blogPosts, getToolCountLabel, siteTools } from "@/lib/site-data";
+import { buildCollectionPageSchema, buildMetadata, buildWebPageSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Free Online Tools for Images, Text, JSON and PDFs",
-  description:
-    "Use fast, mobile-friendly free online tools for image compression, text cleanup, JSON formatting, BMI, age calculation, and PDF merging.",
-  alternates: {
-    canonical: "/"
-  }
-};
+const title = "Free Online Tools for Images, Text, JSON and PDFs";
+const description =
+  "Use fast, mobile-friendly free online tools for image compression, text cleanup, JSON formatting, BMI, age calculation, and PDF merging.";
+
+export const metadata: Metadata = buildMetadata({
+  title,
+  description,
+  path: "/"
+});
 
 export default function HomePage() {
   return (
     <main className="container-shell py-8 md:py-12">
+      <SchemaScript
+        schema={[
+          buildWebPageSchema({
+            title,
+            description,
+            path: "/"
+          }),
+          buildCollectionPageSchema({
+            title: "Online Tools Directory",
+            description: "Browse browser-based utilities for images, text, PDFs, JSON, and calculations.",
+            path: "/",
+            itemUrls: siteTools.map((tool) => `/tools/${tool.slug}`)
+          })
+        ]}
+      />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="space-y-6">
           <Hero />

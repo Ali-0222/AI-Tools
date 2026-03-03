@@ -1,5 +1,5 @@
-export function SchemaScript({ schema }: { schema: object | null }) {
-  if (!schema) {
+export function SchemaScript({ schema }: { schema: object | object[] | null }) {
+  if (!schema || (Array.isArray(schema) && schema.length === 0)) {
     return null;
   }
 

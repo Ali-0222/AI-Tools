@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { AuthForm } from "@/components/auth/auth-form";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Forgot Password",
-  description: "Request a password reset for your account."
-};
+  description: "Request a password reset for your account.",
+  path: "/auth/forgot-password",
+  noIndex: true
+});
 
 export default function ForgotPasswordPage() {
   return (

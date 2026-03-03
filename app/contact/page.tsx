@@ -1,20 +1,23 @@
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { ContactForm } from "@/components/contact-form";
+import { SchemaScript } from "@/components/schema-script";
+import { buildMetadata, buildWebPageSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description:
-    `Contact ${siteConfig.name} with feedback, suggestions, or general questions through a simple contact form.`,
-  alternates: {
-    canonical: "/contact"
-  }
-};
+const title = "Contact Us";
+const description = `Contact ${siteConfig.name} with feedback, suggestions, or general questions through a simple contact form.`;
+
+export const metadata: Metadata = buildMetadata({
+  title,
+  description,
+  path: "/contact"
+});
 
 export default function ContactPage() {
   return (
     <main className="container-shell py-8 md:py-12">
+      <SchemaScript schema={buildWebPageSchema({ title, description, path: "/contact" })} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <section className="card p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">Contact</p>

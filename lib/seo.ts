@@ -1,40 +1,224 @@
 import type { Metadata } from "next";
-import { siteTools } from "@/lib/site-data";
+import { blogPosts, siteTools } from "@/lib/site-data";
 import { siteConfig } from "@/lib/site-config";
 
 const siteUrl = siteConfig.url;
+const defaultDescription =
+  "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.";
+const defaultKeywords = [
+  "free online tools",
+  "image compressor",
+  "word counter",
+  "json formatter",
+  "pdf merge",
+  "seo tools website"
+];
+const defaultOgImage = `${siteUrl}/opengraph-image`;
+
+type MetadataInput = {
+  title?: string;
+  description?: string;
+  path?: string;
+  keywords?: string[];
+  type?: "website" | "article";
+  noIndex?: boolean;
+};
+
+function absoluteUrl(path = "/") {
+  return new URL(path, siteUrl).toString();
+}
+
+function getSocialTitle(title?: string) {
+  if (!title || title === siteConfig.name) {
+    return siteConfig.name;
+  }
+
+  return `${title} | ${siteConfig.name}`;
+}
+
+export function buildMetadata({
+  title,
+  description = defaultDescription,
+  path = "/",
+  keywords = defaultKeywords,
+  type = "website",
+  noIndex = false
+}: MetadataInput): Metadata {
+  const socialTitle = getSocialTitle(title);
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: path
+    },
+    openGraph: {
+      title: socialTitle,
+      description,
+      url: absoluteUrl(path),
+      siteName: siteConfig.name,
+      locale: "en_US",
+      type,
+      images: [
+        {
+          url: defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: socialTitle
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description,
+      images: [defaultOgImage]
+    },
+    robots: noIndex
+      ? {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+            noimageindex: true
+          }
+        }
+      : {
+          index: true,
+          follow: true
+        }
+  };
+}
 
 export function getToolBySlug(slug: string) {
   return siteTools.find((tool) => tool.slug === slug);
+}
+
+export function getBlogPostBySlug(slug: string) {
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 export function buildToolMetadata(slug: string): Metadata {
   const tool = getToolBySlug(slug);
 
   if (!tool) {
-    return {
+    return buildMetadata({
       title: "Tool Not Found",
-      description: "The requested tool page could not be found."
-    };
+      description: "The requested tool page could not be found.",
+      path: "/tools"
+    });
   }
 
-  return {
+  return buildMetadata({
     title: tool.metaTitle,
     description: tool.metaDescription,
-    alternates: {
-      canonical: `/tools/${tool.slug}`
-    },
-    openGraph: {
-      title: tool.metaTitle,
-      description: tool.metaDescription,
-      url: `${siteUrl}/tools/${tool.slug}`,
-      type: "website"
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: tool.metaTitle,
-      description: tool.metaDescription
+    path: `/tools/${tool.slug}`
+  });
+}
+
+export function buildBlogPostMetadata(slug: string): Metadata {
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    return buildMetadata({
+      title: "Blog Post Not Found",
+      description: "The requested blog article could not be found.",
+      path: "/blog"
+    });
+  }
+
+  return buildMetadata({
+    title: post.title,
+    description: post.description,
+    path: `/blog/${post.slug}`,
+    type: "article",
+    keywords: [post.category.toLowerCase(), ...defaultKeywords]
+  });
+}
+
+export function buildOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    email: siteConfig.email
+  };
+}
+
+export function buildWebsiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: defaultDescription
+  };
+}
+
+export function buildWebPageSchema({
+  title,
+  description,
+  path
+}: {
+  title: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    description,
+    url: absoluteUrl(path),
+    isPartOf: {
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url
     }
+  };
+}
+
+export function buildCollectionPageSchema({
+  title,
+  description,
+  path,
+  itemUrls
+}: {
+  title: string;
+  description: string;
+  path: string;
+  itemUrls: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: absoluteUrl(path),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: itemUrls.map((url, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(url)
+      }))
+    }
+  };
+}
+
+export function buildBreadcrumbSchema(items: Array<{ name: string; path: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path)
+    }))
   };
 }
 
@@ -53,11 +237,35 @@ export function buildToolSchema(slug: string) {
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript and a modern browser",
-    url: `${siteUrl}/tools/${tool.slug}`,
+    url: absoluteUrl(`/tools/${tool.slug}`),
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD"
+    }
+  };
+}
+
+export function buildBlogPostingSchema({
+  slug,
+  title,
+  description
+}: {
+  slug: string;
+  title: string;
+  description: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    mainEntityOfPage: absoluteUrl(`/blog/${slug}`),
+    url: absoluteUrl(`/blog/${slug}`),
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url
     }
   };
 }

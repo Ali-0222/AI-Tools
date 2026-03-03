@@ -14,30 +14,31 @@ export function SiteLogo({
 }: SiteLogoProps) {
   const content = (
     <>
-      <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--accent),var(--accent-strong))] shadow-[0_12px_30px_rgba(14,116,144,0.24)]">
+      <span className="relative flex h-12 w-12 items-center justify-center rounded-[1.15rem] border border-[var(--border)] bg-[var(--accent-soft)] shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
         <svg
           aria-hidden="true"
           viewBox="0 0 48 48"
-          className="h-7 w-7 text-white"
+          className="h-7 w-7"
           fill="none"
-          stroke="currentColor"
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M13 17h22" />
-          <path d="M24 17v14" />
-          <path d="M18 31h12" />
-          <path d="M12 24c3-7 8-10 12-10s9 3 12 10c-3 7-8 10-12 10s-9-3-12-10Z" />
-          <circle cx="24" cy="24" r="3.5" fill="currentColor" stroke="none" />
+          <path d="M16 15c1.8-3.8 4.7-5.7 8-5.7s6.2 1.9 8 5.7" stroke="var(--accent)" />
+          <rect x="14" y="16" width="20" height="16" rx="8" fill="var(--accent)" />
+          <path d="M20 22h8" stroke="white" />
+          <path d="M24 22v6" stroke="white" />
+          <path d="M18 36h12" stroke="var(--foreground)" />
+          <circle cx="18" cy="18" r="2.5" fill="var(--accent-soft)" stroke="var(--accent)" />
+          <circle cx="30" cy="18" r="2.5" fill="var(--accent-soft)" stroke="var(--accent)" />
         </svg>
       </span>
       {compact ? null : (
         <span className="flex flex-col leading-none">
-          <span className="text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
+          <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">
             Toolbee
           </span>
-          <span className="text-xl font-bold tracking-tight text-[var(--foreground)]">
+          <span className="text-[1.15rem] font-bold tracking-[-0.03em] text-[var(--foreground)]">
             Pro
           </span>
         </span>

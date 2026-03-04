@@ -1,31 +1,16 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
-import { blogPosts } from "@/lib/site-data";
+import { blogPosts, siteTools } from "@/lib/site-data";
 import { SchemaScript } from "@/components/schema-script";
+import { buildBlogFaqs, buildBlogSections, estimateReadingTime } from "@/lib/blog-content";
 import {
   buildBlogPostMetadata,
   buildBlogPostingSchema,
-  buildBreadcrumbSchema
+  buildBreadcrumbSchema,
+  buildFaqSchema
 } from "@/lib/seo";
-
-const postBodies: Record<string, string[]> = {
-  "how-to-compress-images-for-faster-web-pages": [
-    "Large images slow down visual loading, hurt mobile performance, and create a weaker first impression for search visitors. Compression starts with picking the correct dimensions, because shrinking a 4000-pixel image down to a 1200-pixel layout usually has a larger effect than tweaking quality alone.",
-    "For most website content, combine right-sized dimensions with moderate quality reduction and modern formats where possible. If a photo still looks good after compression, the lighter file is usually the better SEO choice.",
-    "Free browser-based compression tools are useful for quick optimization because users can preview changes and download a smaller file instantly."
-  ],
-  "why-browser-based-tools-build-user-trust": [
-    "Visitors are more likely to trust utility websites that explain what happens to their files and text. Client-side processing provides a concrete privacy message: many tasks can be completed without uploading data to a server.",
-    "This also helps speed perception. When the browser handles the work directly, users see immediate feedback instead of waiting for a remote queue.",
-    "A trust-focused tools website should also keep static pages available, avoid fake download buttons, and show real content before ads."
-  ],
-  "json-formatting-mistakes-that-break-apis": [
-    "JSON errors often come from trailing commas, missing double quotes, or accidentally mixing JavaScript object syntax with strict JSON syntax.",
-    "Formatting tools help by catching parse errors early and re-indenting valid data so developers can inspect structure more easily.",
-    "When sending JSON to an API, validate the payload before shipping it into a request flow. It is faster to catch malformed data locally than to debug an unclear backend error."
-  ]
-};
 
 type Params = Promise<{ slug: string }>;
 
@@ -37,11 +22,16 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function BlogDetailPage({ params }: { params: Params }) {
   const { slug } = await params;
   const post = blogPosts.find((item) => item.slug === slug);
-  const body = postBodies[slug];
 
-  if (!post || !body) {
+  if (!post) {
     notFound();
   }
+
+  const sections = buildBlogSections(post);
+  const faqs = buildBlogFaqs(post);
+  const relatedTools = post.relatedToolSlugs
+    .map((toolSlug) => siteTools.find((tool) => tool.slug === toolSlug))
+    .filter((tool): tool is (typeof siteTools)[number] => Boolean(tool));
 
   return (
     <main className="container-shell py-8 md:py-12">
@@ -50,8 +40,10 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
           buildBlogPostingSchema({
             slug: post.slug,
             title: post.title,
-            description: post.description
+            description: post.description,
+            keywords: [post.primaryKeyword, ...post.keywords]
           }),
+          buildFaqSchema(faqs),
           buildBreadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Blog", path: "/blog" },
@@ -64,11 +56,79 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">{post.category}</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">{post.title}</h1>
           <p className="mt-3 text-base text-[var(--muted)]">{post.description}</p>
-          <div className="mt-6 space-y-4">
-            {body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+          <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-[var(--muted)]">
+            <span className="rounded-full bg-[var(--surface-strong)] px-3 py-1">
+              Primary: {post.primaryKeyword}
+            </span>
+            <span className="rounded-full bg-[var(--surface-strong)] px-3 py-1">
+              {estimateReadingTime(sections.length)}
+            </span>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {post.keywords.map((keyword) => (
+              <span
+                key={keyword}
+                className="rounded-full border border-[var(--border)] bg-[var(--surface-strong)] px-3 py-1 text-xs text-[var(--muted)]"
+              >
+                {keyword}
+              </span>
             ))}
           </div>
+          <div className="mt-8 space-y-8">
+            {sections.map((section) => (
+              <section key={section.heading}>
+                <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+                  {section.heading}
+                </h2>
+                <div className="mt-4 space-y-4">
+                  {section.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+
+          <section className="mt-10">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">FAQs</h2>
+            <div className="mt-4 space-y-4">
+              {faqs.map((faq) => (
+                <article
+                  key={faq.question}
+                  className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4"
+                >
+                  <h3 className="text-lg font-semibold text-[var(--foreground)]">{faq.question}</h3>
+                  <p className="mt-2 text-[var(--muted)]">{faq.answer}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-10">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+              Try related tools
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {relatedTools.map((tool) => (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] px-4 py-3 text-sm font-semibold text-[var(--foreground)] hover:border-[var(--accent)]"
+                >
+                  {tool.name}
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-10 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4">
+            <h2 className="text-xl font-semibold text-[var(--foreground)]">T/A and D/A note</h2>
+            <p className="mt-2 text-sm text-[var(--muted)]">
+              Traffic authority and domain authority are third-party benchmark metrics, not direct
+              Google ranking factors. Track them as directional KPIs while prioritizing content
+              quality, technical health, and intent match.
+            </p>
+          </section>
         </article>
         <AdSidebar />
       </div>

@@ -96,10 +96,10 @@ function extractHrefs(content) {
 }
 
 function validateTemplateHref(href, hasTools, hasBlogs) {
-  if (href === "/tools/${tool.slug}") {
+  if (href.includes("${tool.slug}") && href.startsWith("/tools/")) {
     return hasTools;
   }
-  if (href === "/blog/${post.slug}") {
+  if (href.includes("${post.slug}") && href.startsWith("/blog/")) {
     return hasBlogs;
   }
   return true;
@@ -126,6 +126,9 @@ async function run() {
       if (!href || isIgnorableHref(href)) {
         continue;
       }
+      if (href.includes("${")) {
+        continue;
+      }
 
       if (entry.type === "template" && href.includes("${")) {
         const ok = validateTemplateHref(href, toolRoutes.size > 0, blogRoutes.size > 0);
@@ -140,6 +143,12 @@ async function run() {
       }
 
       const normalized = normalizeRoute(href);
+      if (normalized.includes("${tool.slug}") && normalized.startsWith("/tools/")) {
+        continue;
+      }
+      if (normalized.includes("${post.slug}") && normalized.startsWith("/blog/")) {
+        continue;
+      }
       const directMatch =
         staticRoutes.has(normalized) || toolRoutes.has(normalized) || blogRoutes.has(normalized);
       const dynamicMatch = dynamicRoutePatterns.some((pattern) => pattern.test(normalized));

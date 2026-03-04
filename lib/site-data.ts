@@ -362,23 +362,240 @@ export function getToolCountLabel() {
   return `${siteTools.length} dedicated tool pages`;
 }
 
-export const blogPosts = [
+export type BlogPostDefinition = {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  primaryKeyword: string;
+  keywords: string[];
+  relatedToolSlugs: ToolKey[];
+};
+
+export const blogPosts: BlogPostDefinition[] = [
   {
     slug: "how-to-compress-images-for-faster-web-pages",
     title: "How to Compress Images for Faster Web Pages",
-    description: "Learn when to reduce image dimensions, lower quality, and pick the right format for SEO performance.",
-    category: "Images"
+    description: "Learn how to reduce image size without losing quality and improve Core Web Vitals.",
+    category: "Images",
+    primaryKeyword: "image compression for seo",
+    keywords: ["compress images online", "reduce image size", "website speed optimization"],
+    relatedToolSlugs: ["image-compressor", "image-resizer", "jpg-to-png"]
+  },
+  {
+    slug: "image-resize-vs-compress-which-comes-first",
+    title: "Image Resize vs Compress: Which Step Comes First?",
+    description: "Understand the right order of image optimization to get smaller files and cleaner output.",
+    category: "Images",
+    primaryKeyword: "resize vs compress image",
+    keywords: ["image optimization workflow", "image dimensions for web", "compress after resize"],
+    relatedToolSlugs: ["image-resizer", "image-compressor", "jpg-to-png"]
+  },
+  {
+    slug: "jpg-vs-png-for-seo-and-web-performance",
+    title: "JPG vs PNG for SEO and Web Performance",
+    description: "Choose the right image format for quality, transparency, and faster load times.",
+    category: "Images",
+    primaryKeyword: "jpg vs png seo",
+    keywords: ["best image format for website", "png transparency use case", "optimize jpg for web"],
+    relatedToolSlugs: ["jpg-to-png", "image-compressor", "image-resizer"]
   },
   {
     slug: "why-browser-based-tools-build-user-trust",
     title: "Why Browser-Based Tools Build More User Trust",
-    description: "Client-side tools can help privacy messaging, speed perception, and approval readiness.",
-    category: "Privacy"
+    description: "Client-side tools can improve privacy perception, speed, and conversion confidence.",
+    category: "Privacy",
+    primaryKeyword: "browser based tools privacy",
+    keywords: ["client-side processing", "online tool trust signals", "privacy friendly tools"],
+    relatedToolSlugs: ["json-formatter", "word-counter", "pdf-merge"]
+  },
+  {
+    slug: "privacy-first-copywriting-for-online-tools",
+    title: "Privacy-First Copywriting for Online Tools",
+    description: "Write trust-focused copy that improves engagement without overpromising.",
+    category: "Privacy",
+    primaryKeyword: "privacy copywriting",
+    keywords: ["trust copy for tools", "privacy messaging examples", "conversion copywriting"],
+    relatedToolSlugs: ["word-counter", "case-converter", "remove-duplicates"]
   },
   {
     slug: "json-formatting-mistakes-that-break-apis",
     title: "JSON Formatting Mistakes That Break APIs",
-    description: "Common syntax issues, escaping problems, and validation steps for cleaner API payloads.",
-    category: "Developer"
+    description: "Common JSON syntax issues and practical validation habits for cleaner payloads.",
+    category: "Developer",
+    primaryKeyword: "json formatting mistakes",
+    keywords: ["json parse error", "json validator workflow", "api payload debugging"],
+    relatedToolSlugs: ["json-formatter", "base64-encoder-decoder", "url-encoder-decoder"]
+  },
+  {
+    slug: "url-encoding-guide-for-api-requests",
+    title: "URL Encoding Guide for API Requests",
+    description: "Learn where URL encoding is required and avoid broken parameters in requests.",
+    category: "Developer",
+    primaryKeyword: "url encoding guide",
+    keywords: ["encodeURIComponent tutorial", "query param encoding", "api url best practices"],
+    relatedToolSlugs: ["url-encoder-decoder", "json-formatter", "base64-encoder-decoder"]
+  },
+  {
+    slug: "base64-encoding-when-to-use-and-avoid",
+    title: "Base64 Encoding: When to Use It and When to Avoid It",
+    description: "Understand practical Base64 use cases, limits, and common mistakes in apps.",
+    category: "Developer",
+    primaryKeyword: "base64 encoding use cases",
+    keywords: ["base64 decode online", "base64 in APIs", "text encoding mistakes"],
+    relatedToolSlugs: ["base64-encoder-decoder", "url-encoder-decoder", "json-formatter"]
+  },
+  {
+    slug: "how-to-write-seo-friendly-urls-with-slugs",
+    title: "How to Write SEO-Friendly URLs with Slugs",
+    description: "Build cleaner slugs that help indexing, readability, and CTR.",
+    category: "SEO",
+    primaryKeyword: "seo friendly url slug",
+    keywords: ["slug best practices", "url structure seo", "clean url generator"],
+    relatedToolSlugs: ["slug-generator", "case-converter", "whitespace-cleaner"]
+  },
+  {
+    slug: "keyword-clustering-for-small-tools-websites",
+    title: "Keyword Clustering for Small Tools Websites",
+    description: "Plan topical clusters so every page supports stronger rankings over time.",
+    category: "SEO",
+    primaryKeyword: "keyword clustering",
+    keywords: ["topic clusters seo", "content silos", "seo planning for tools site"],
+    relatedToolSlugs: ["slug-generator", "word-counter", "case-converter"]
+  },
+  {
+    slug: "how-to-build-internal-links-that-rank-faster",
+    title: "How to Build Internal Links That Rank Faster",
+    description: "Use smart anchor placement and contextual linking across tool and blog pages.",
+    category: "SEO",
+    primaryKeyword: "internal linking strategy",
+    keywords: ["contextual links seo", "internal links for tools pages", "seo site architecture"],
+    relatedToolSlugs: ["slug-generator", "word-counter", "remove-duplicates"]
+  },
+  {
+    slug: "on-page-seo-checklist-for-tool-pages",
+    title: "On-Page SEO Checklist for Tool Pages",
+    description: "A practical framework for titles, meta descriptions, H1s, FAQs, and schema.",
+    category: "SEO",
+    primaryKeyword: "on page seo checklist",
+    keywords: ["tool page seo", "meta title writing", "faq schema seo"],
+    relatedToolSlugs: ["slug-generator", "word-counter", "json-formatter"]
+  },
+  {
+    slug: "how-to-improve-core-web-vitals-for-utility-sites",
+    title: "How to Improve Core Web Vitals for Utility Sites",
+    description: "Improve LCP, CLS, and INP for faster perceived performance and better SEO health.",
+    category: "Performance",
+    primaryKeyword: "core web vitals optimization",
+    keywords: ["improve lcp", "reduce cls", "nextjs performance tips"],
+    relatedToolSlugs: ["image-compressor", "image-resizer", "jpg-to-png"]
+  },
+  {
+    slug: "mobile-seo-best-practices-for-tools-websites",
+    title: "Mobile SEO Best Practices for Tools Websites",
+    description: "Design and content patterns that improve rankings and conversions on phones.",
+    category: "SEO",
+    primaryKeyword: "mobile seo best practices",
+    keywords: ["mobile first seo", "responsive tool pages", "mobile ux seo"],
+    relatedToolSlugs: ["word-counter", "age-calculator", "bmi-calculator"]
+  },
+  {
+    slug: "word-counter-use-cases-for-writers-and-students",
+    title: "Word Counter Use Cases for Writers and Students",
+    description: "Real use cases where accurate word and character counts save editing time.",
+    category: "Text",
+    primaryKeyword: "word counter online",
+    keywords: ["character counter", "essay word limit", "content writing workflow"],
+    relatedToolSlugs: ["word-counter", "case-converter", "remove-duplicates"]
+  },
+  {
+    slug: "case-conversion-workflows-for-content-teams",
+    title: "Case Conversion Workflows for Content Teams",
+    description: "Standardize text casing for headlines, metadata, and editorial pipelines.",
+    category: "Text",
+    primaryKeyword: "case converter workflow",
+    keywords: ["uppercase lowercase converter", "title case style", "content editing process"],
+    relatedToolSlugs: ["case-converter", "whitespace-cleaner", "text-reverser"]
+  },
+  {
+    slug: "cleaning-messy-copy-with-whitespace-tools",
+    title: "Cleaning Messy Copy with Whitespace Tools",
+    description: "Fix spacing issues and improve readability before publishing or sharing content.",
+    category: "Text",
+    primaryKeyword: "clean whitespace in text",
+    keywords: ["remove extra spaces", "text cleanup tool", "formatting cleanup"],
+    relatedToolSlugs: ["whitespace-cleaner", "remove-duplicates", "text-sorter"]
+  },
+  {
+    slug: "line-sorting-and-deduping-for-data-cleanups",
+    title: "Line Sorting and Deduping for Data Cleanups",
+    description: "Sort and dedupe text lists faster for operations, outreach, and analysis.",
+    category: "Text",
+    primaryKeyword: "sort and dedupe lines",
+    keywords: ["remove duplicate lines online", "sort text list", "data cleanup workflow"],
+    relatedToolSlugs: ["text-sorter", "remove-duplicates", "whitespace-cleaner"]
+  },
+  {
+    slug: "secure-password-practices-for-everyday-users",
+    title: "Secure Password Practices for Everyday Users",
+    description: "Simple password hygiene habits and generator settings for safer accounts.",
+    category: "Security",
+    primaryKeyword: "secure password generator",
+    keywords: ["strong password tips", "password length recommendation", "online security basics"],
+    relatedToolSlugs: ["password-generator", "uuid-generator", "base64-encoder-decoder"]
+  },
+  {
+    slug: "uuid-v4-explained-for-beginners",
+    title: "UUID v4 Explained for Beginners",
+    description: "Understand UUID structure, use cases, and generation best practices.",
+    category: "Developer",
+    primaryKeyword: "uuid v4 generator",
+    keywords: ["what is uuid", "unique id generation", "uuid use cases"],
+    relatedToolSlugs: ["uuid-generator", "json-formatter", "url-encoder-decoder"]
+  },
+  {
+    slug: "pdf-merge-best-practices-for-clean-document-sets",
+    title: "PDF Merge Best Practices for Clean Document Sets",
+    description: "Merge PDFs in the right order and avoid output quality issues.",
+    category: "PDF",
+    primaryKeyword: "merge pdf online",
+    keywords: ["combine pdf files", "pdf order workflow", "document merge tips"],
+    relatedToolSlugs: ["pdf-merge", "word-to-pdf", "image-compressor"]
+  },
+  {
+    slug: "word-to-pdf-conversion-tips-for-better-layouts",
+    title: "Word to PDF Conversion Tips for Better Layouts",
+    description: "Keep fonts, spacing, and section structure cleaner when exporting to PDF.",
+    category: "Document",
+    primaryKeyword: "word to pdf converter online",
+    keywords: ["docx to pdf tips", "document formatting", "pdf export quality"],
+    relatedToolSlugs: ["word-to-pdf", "pdf-merge", "word-counter"]
+  },
+  {
+    slug: "cv-writing-mistakes-that-hurt-job-applications",
+    title: "CV Writing Mistakes That Hurt Job Applications",
+    description: "Avoid common resume issues and present clearer value to recruiters.",
+    category: "Career",
+    primaryKeyword: "cv writing tips",
+    keywords: ["resume mistakes", "cv template guidance", "job application tips"],
+    relatedToolSlugs: ["cv-builder", "word-counter", "case-converter"]
+  },
+  {
+    slug: "age-and-bmi-calculators-for-health-tracking",
+    title: "Age and BMI Calculators for Health Tracking",
+    description: "Use simple calculators for quick estimates and more informed daily decisions.",
+    category: "Calculator",
+    primaryKeyword: "bmi calculator online",
+    keywords: ["age calculator online", "health tracking tools", "bmi category meaning"],
+    relatedToolSlugs: ["age-calculator", "bmi-calculator", "word-counter"]
+  },
+  {
+    slug: "how-to-plan-a-scalable-tools-blog-content-calendar",
+    title: "How to Plan a Scalable Tools Blog Content Calendar",
+    description: "Create a repeatable publishing system that supports tool-page growth and SEO.",
+    category: "SEO",
+    primaryKeyword: "tools blog content calendar",
+    keywords: ["seo editorial calendar", "content planning", "publish consistency strategy"],
+    relatedToolSlugs: ["slug-generator", "word-counter", "case-converter"]
   }
 ];

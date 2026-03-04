@@ -137,7 +137,7 @@ export function buildBlogPostMetadata(slug: string): Metadata {
     description: post.description,
     path: `/blog/${post.slug}`,
     type: "article",
-    keywords: [post.category.toLowerCase(), ...defaultKeywords]
+    keywords: [post.primaryKeyword, ...post.keywords, post.category.toLowerCase(), ...defaultKeywords]
   });
 }
 
@@ -271,17 +271,20 @@ export function buildFaqSchema(faqs: Array<{ question: string; answer: string }>
 export function buildBlogPostingSchema({
   slug,
   title,
-  description
+  description,
+  keywords
 }: {
   slug: string;
   title: string;
   description: string;
+  keywords?: string[];
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
     description,
+    keywords,
     mainEntityOfPage: absoluteUrl(`/blog/${slug}`),
     url: absoluteUrl(`/blog/${slug}`),
     publisher: {

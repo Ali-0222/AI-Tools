@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`
   },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+    apple: [{ url: "/icon.svg" }]
+  },
   description: "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
   applicationName: siteConfig.name,
   openGraph: {

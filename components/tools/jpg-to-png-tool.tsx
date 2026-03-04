@@ -102,6 +102,8 @@ export function JpgToPngTool() {
           src={previewUrl}
           alt="PNG preview"
           className="max-h-96 w-full rounded-2xl border border-[var(--border)] bg-white p-2 object-contain"
+          loading="lazy"
+          decoding="async"
         />
       ) : null}
       <div className="flex flex-wrap gap-3">

@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import { SchemaScript } from "@/components/schema-script";
 import { ToolLayout } from "@/components/tool-layout";
-import { buildBreadcrumbSchema, buildToolMetadata, buildToolSchema } from "@/lib/seo";
+import { ToolSeoContent } from "@/components/tool-seo-content";
+import { buildBreadcrumbSchema, buildFaqSchema, buildToolMetadata, buildToolSchema } from "@/lib/seo";
 import { siteTools, type ToolKey } from "@/lib/site-data";
+import { buildToolFaqs, getRelatedTools } from "@/lib/tool-seo-content";
 import { renderToolBySlug } from "@/lib/tool-renderers";
 
 type Params = Promise<{ slug: ToolKey }>;
@@ -24,9 +26,13 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
     notFound();
   }
 
+  const relatedTools = getRelatedTools(tool.slug);
+  const faqs = buildToolFaqs(tool);
+
   return (
     <>
       <SchemaScript schema={buildToolSchema(slug)} />
+      <SchemaScript schema={buildFaqSchema(faqs)} />
       <SchemaScript
         schema={buildBreadcrumbSchema([
           { name: "Home", path: "/" },
@@ -37,6 +43,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
       <ToolLayout title={tool.pageTitle} description={tool.pageDescription} tips={tool.tips}>
         {renderToolBySlug(slug)}
       </ToolLayout>
+      <ToolSeoContent tool={tool} relatedTools={relatedTools} />
     </>
   );
 }

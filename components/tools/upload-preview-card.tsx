@@ -20,7 +20,13 @@ export function UploadPreviewCard({
           {loading ? (
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
           ) : previewUrl ? (
-            <img src={previewUrl} alt={fileName} className="h-full w-full object-cover" />
+            <img
+              src={previewUrl}
+              alt={fileName}
+              className="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
           ) : (
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
           )}

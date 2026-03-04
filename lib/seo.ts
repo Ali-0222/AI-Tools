@@ -111,9 +111,12 @@ export function buildToolMetadata(slug: string): Metadata {
     });
   }
 
+  const seoTitle = `${tool.metaTitle} - Fast & Secure`;
+  const seoDescription = `${tool.metaDescription} No signup required. Simple interface with quick results on ${siteConfig.name}.`;
+
   return buildMetadata({
-    title: tool.metaTitle,
-    description: tool.metaDescription,
+    title: seoTitle,
+    description: seoDescription,
     path: `/tools/${tool.slug}`
   });
 }
@@ -243,6 +246,25 @@ export function buildToolSchema(slug: string) {
       price: "0",
       priceCurrency: "USD"
     }
+  };
+}
+
+export function buildFaqSchema(faqs: Array<{ question: string; answer: string }>) {
+  if (faqs.length === 0) {
+    return null;
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer
+      }
+    }))
   };
 }
 

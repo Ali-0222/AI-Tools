@@ -145,6 +145,8 @@ export function ImageCompressorTool() {
           src={previewUrl}
           alt="Compressed preview"
           className="max-h-96 w-full rounded-2xl border border-[var(--border)] bg-white p-2 object-contain"
+          loading="lazy"
+          decoding="async"
         />
       ) : null}
       {error ? <p className="text-sm text-[var(--warn)]">{error}</p> : null}

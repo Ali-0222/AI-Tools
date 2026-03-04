@@ -5,6 +5,14 @@ export type ToolKey =
   | "word-counter"
   | "case-converter"
   | "remove-duplicates"
+  | "text-reverser"
+  | "text-sorter"
+  | "whitespace-cleaner"
+  | "slug-generator"
+  | "url-encoder-decoder"
+  | "base64-encoder-decoder"
+  | "password-generator"
+  | "uuid-generator"
   | "age-calculator"
   | "bmi-calculator"
   | "json-formatter"
@@ -121,6 +129,134 @@ export const siteTools: ToolDefinition[] = [
       "Paste line-based text into the tool.",
       "Review the automatically cleaned output.",
       "Copy the result or reset the form."
+    ]
+  },
+  {
+    name: "Text Reverser",
+    slug: "text-reverser",
+    shortTitle: "Reverse text",
+    description: "Reverse text instantly in your browser for words, sentences, or full paragraphs.",
+    metaTitle: "Free Text Reverser Online",
+    metaDescription: "Reverse text online for free with a fast browser-based text reverser tool.",
+    category: "Text",
+    pageTitle: "Text Reverser",
+    pageDescription: "Reverse any text instantly while keeping your workflow simple and fast.",
+    tips: [
+      "Paste or type your text into the input area.",
+      "Review the reversed output generated instantly.",
+      "Copy the output or reset the tool for a new input."
+    ]
+  },
+  {
+    name: "Text Sorter",
+    slug: "text-sorter",
+    shortTitle: "Sort lines",
+    description: "Sort text lines alphabetically, remove duplicates, and reorder data quickly in your browser.",
+    metaTitle: "Free Text Sorter Online",
+    metaDescription: "Sort lines alphabetically and clean text lists online with a free text sorter.",
+    category: "Text",
+    pageTitle: "Text Sorter",
+    pageDescription: "Sort text lines A-Z or Z-A and optionally remove duplicate rows.",
+    tips: [
+      "Paste line-based text into the input area.",
+      "Choose sort direction and duplicate handling options.",
+      "Copy the sorted output for your next step."
+    ]
+  },
+  {
+    name: "Whitespace Cleaner",
+    slug: "whitespace-cleaner",
+    shortTitle: "Clean spaces",
+    description: "Remove extra spaces and tidy messy text formatting with one click.",
+    metaTitle: "Free Whitespace Cleaner Online",
+    metaDescription: "Remove extra spaces and clean text formatting online for free.",
+    category: "Text",
+    pageTitle: "Whitespace Cleaner",
+    pageDescription: "Clean extra spaces, trim lines, and make text easier to read.",
+    tips: [
+      "Paste text with irregular spacing into the input.",
+      "Run the cleaner to normalize spacing and trim lines.",
+      "Copy the cleaned text output."
+    ]
+  },
+  {
+    name: "Slug Generator",
+    slug: "slug-generator",
+    shortTitle: "Generate slugs",
+    description: "Create SEO-friendly URL slugs from titles or phrases instantly.",
+    metaTitle: "Free Slug Generator Online",
+    metaDescription: "Generate clean SEO-friendly slugs from text with a free online slug generator.",
+    category: "SEO",
+    pageTitle: "Slug Generator",
+    pageDescription: "Convert titles into clean, readable URL slugs for web pages.",
+    tips: [
+      "Type or paste a title into the input box.",
+      "Review the generated slug in lowercase format.",
+      "Copy the slug and use it in your URL path."
+    ]
+  },
+  {
+    name: "URL Encoder Decoder",
+    slug: "url-encoder-decoder",
+    shortTitle: "Encode URLs",
+    description: "Encode or decode URL strings safely for query parameters and web requests.",
+    metaTitle: "Free URL Encoder Decoder Online",
+    metaDescription: "Encode and decode URL strings online with a fast free browser tool.",
+    category: "Developer",
+    pageTitle: "URL Encoder Decoder",
+    pageDescription: "Encode and decode URL values instantly for safer web request handling.",
+    tips: [
+      "Paste URL text or query values into the input area.",
+      "Choose encode or decode mode based on your need.",
+      "Copy the converted output and use it in your app or link."
+    ]
+  },
+  {
+    name: "Base64 Encoder Decoder",
+    slug: "base64-encoder-decoder",
+    shortTitle: "Encode Base64",
+    description: "Encode plain text to Base64 and decode Base64 back to readable text.",
+    metaTitle: "Free Base64 Encoder Decoder Online",
+    metaDescription: "Encode or decode Base64 text online for free in your browser.",
+    category: "Developer",
+    pageTitle: "Base64 Encoder Decoder",
+    pageDescription: "Convert text to Base64 and decode Base64 strings quickly and safely.",
+    tips: [
+      "Paste plain text or Base64 text in the input field.",
+      "Pick encode or decode mode.",
+      "Copy the converted result for your workflow."
+    ]
+  },
+  {
+    name: "Password Generator",
+    slug: "password-generator",
+    shortTitle: "Generate passwords",
+    description: "Create strong random passwords with custom length and character options.",
+    metaTitle: "Free Password Generator Online",
+    metaDescription: "Generate secure random passwords online with customizable options for length and symbols.",
+    category: "Security",
+    pageTitle: "Password Generator",
+    pageDescription: "Generate strong random passwords in one click with customizable settings.",
+    tips: [
+      "Set your desired password length.",
+      "Choose character options like uppercase, numbers, and symbols.",
+      "Generate and copy a secure password."
+    ]
+  },
+  {
+    name: "UUID Generator",
+    slug: "uuid-generator",
+    shortTitle: "Generate UUIDs",
+    description: "Generate UUID v4 values instantly for apps, databases, and APIs.",
+    metaTitle: "Free UUID Generator Online",
+    metaDescription: "Generate UUID v4 values online instantly with a free UUID generator.",
+    category: "Developer",
+    pageTitle: "UUID Generator",
+    pageDescription: "Generate unique UUID v4 values quickly for development tasks.",
+    tips: [
+      "Choose how many UUID values you need.",
+      "Generate the UUID list instantly.",
+      "Copy one UUID or all values at once."
     ]
   },
   {

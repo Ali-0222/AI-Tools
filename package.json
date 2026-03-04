@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "audit:links": "node scripts/link-audit.mjs",
     "typegen": "next typegen",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"

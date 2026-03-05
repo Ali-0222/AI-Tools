@@ -10,7 +10,14 @@ type Mode = "login" | "register" | "forgot";
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
-  const { configured, loginWithEmail, loginWithGoogle, registerWithEmail, requestPasswordReset } =
+  const {
+    configured,
+    missingConfigKeys,
+    loginWithEmail,
+    loginWithGoogle,
+    registerWithEmail,
+    requestPasswordReset
+  } =
     useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -67,7 +74,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
     <div className="mx-auto max-w-xl rounded-3xl border border-[var(--border)] bg-white p-6 shadow-[0_14px_40px_rgba(15,23,42,0.06)] md:p-8">
       {!configured ? (
         <div className="mb-5 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4 text-sm leading-6 text-[var(--muted)]">
-          Firebase auth is not configured yet. Add the values from `.env.example` to your local `.env.local` file and create a Firebase project with Google and Email/Password sign-in enabled.
+          Firebase auth is not configured yet. Missing keys: {missingConfigKeys.join(", ")}. Add these
+          `NEXT_PUBLIC_FIREBASE_*` values in Vercel Project Settings and redeploy.
         </div>
       ) : null}
 

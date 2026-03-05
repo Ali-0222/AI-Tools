@@ -16,8 +16,23 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
+const requiredAuthConfigKeys: Array<keyof typeof firebaseConfig> = [
+  "apiKey",
+  "authDomain",
+  "projectId",
+  "appId"
+];
+
+function hasValue(value: string | undefined) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+export function getMissingFirebaseConfigKeys() {
+  return requiredAuthConfigKeys.filter((key) => !hasValue(firebaseConfig[key]));
+}
+
 export function hasFirebaseConfig() {
-  return Object.values(firebaseConfig).every(Boolean);
+  return getMissingFirebaseConfigKeys().length === 0;
 }
 
 export function getFirebaseApp() {

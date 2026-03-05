@@ -12,7 +12,12 @@ import {
   signOut,
   updateProfile
 } from "firebase/auth";
-import { getFirebaseAuth, getGoogleProvider, hasFirebaseConfig } from "@/lib/firebase";
+import {
+  getFirebaseAuth,
+  getGoogleProvider,
+  hasFirebaseConfig,
+  getMissingFirebaseConfigKeys
+} from "@/lib/firebase";
 
 type AuthUser = {
   id: string;
@@ -25,6 +30,7 @@ type AuthContextValue = {
   user: AuthUser | null;
   ready: boolean;
   configured: boolean;
+  missingConfigKeys: string[];
   loginWithEmail: (email: string, password: string) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
   registerWithEmail: (name: string, email: string, password: string) => Promise<void>;
@@ -47,6 +53,7 @@ function mapUser(user: User): AuthUser {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [ready, setReady] = useState(false);
+  const missingConfigKeys = getMissingFirebaseConfigKeys();
   const configured = hasFirebaseConfig();
 
   useEffect(() => {
@@ -122,6 +129,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         ready,
         configured,
+        missingConfigKeys,
         loginWithEmail,
         loginWithGoogle,
         registerWithEmail,

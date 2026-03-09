@@ -14,9 +14,12 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    shortcut: ["/icon.svg"],
-    apple: [{ url: "/icon.svg" }]
+    icon: [
+      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" }
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
   },
   description: "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
   applicationName: siteConfig.name,

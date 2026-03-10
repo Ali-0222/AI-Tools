@@ -139,7 +139,7 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
             </section>
           ) : null}
         </article>
-        <AdSidebar />
+        {/* <AdSidebar /> */}
       </div>
     </main>
   );

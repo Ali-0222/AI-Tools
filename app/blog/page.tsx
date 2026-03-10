@@ -47,7 +47,7 @@ export default function BlogPage() {
             ))}
           </div>
         </section>
-        <AdSidebar />
+        {/* <AdSidebar /> */}
       </div>
     </main>
   );

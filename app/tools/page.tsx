@@ -31,8 +31,8 @@ export default function ToolsPage() {
         <section className="card p-6 md:p-8">
           <SectionHeading
             eyebrow="All Tools"
-            title={`${siteTools.length} free tools on dedicated SEO-friendly pages`}
-            text="Each tool includes a short intro, browser-based logic, and clear actions for copy, reset, or download when relevant."
+            title={`${siteTools.length} free tools on dedicated pages`}
+            text="Each tool includes a clear intro, browser-based logic, and simple actions for copy, reset, or download when relevant."
             as="h1"
           />
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

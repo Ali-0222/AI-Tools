@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 import { SchemaScript } from "@/components/schema-script";
 import { ToolLayout } from "@/components/tool-layout";
 import { ToolSeoContent } from "@/components/tool-seo-content";
+import { getLandingPagesByTool } from "@/lib/landing-pages";
 import { buildBreadcrumbSchema, buildFaqSchema, buildToolMetadata, buildToolSchema } from "@/lib/seo";
 import { siteTools, type ToolKey } from "@/lib/site-data";
-import { buildToolFaqs, getRelatedTools } from "@/lib/tool-seo-content";
+import { buildToolFaqs, getRelatedTools, getToolDescription, getToolHeading } from "@/lib/tool-seo-content";
 import { renderToolBySlug } from "@/lib/tool-renderers";
 
 type Params = Promise<{ slug: ToolKey }>;
@@ -27,6 +28,7 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
   }
 
   const relatedTools = getRelatedTools(tool.slug);
+  const relatedLandingPages = getLandingPagesByTool(tool.slug);
   const faqs = buildToolFaqs(tool);
 
   return (
@@ -40,10 +42,14 @@ export default async function ToolDetailPage({ params }: { params: Params }) {
           { name: tool.name, path: `/tools/${tool.slug}` }
         ])}
       />
-      <ToolLayout title={tool.pageTitle} description={tool.pageDescription} tips={tool.tips}>
+      <ToolLayout title={getToolHeading(tool)} description={getToolDescription(tool)} tips={tool.tips}>
         {renderToolBySlug(slug)}
       </ToolLayout>
-      <ToolSeoContent tool={tool} relatedTools={relatedTools} />
+      <ToolSeoContent
+        tool={tool}
+        relatedTools={relatedTools}
+        relatedLandingPages={relatedLandingPages}
+      />
     </>
   );
 }

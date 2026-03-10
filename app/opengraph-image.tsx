@@ -61,7 +61,7 @@ export default function OpenGraphImage() {
             }}
           >
             <div style={{ display: "flex" }}>Client-side processing</div>
-            <div style={{ display: "flex" }}>SEO-ready pages</div>
+            <div style={{ display: "flex" }}>Helpful guides</div>
             <div style={{ display: "flex" }}>Mobile friendly</div>
           </div>
         </div>

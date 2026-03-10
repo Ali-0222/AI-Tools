@@ -369,6 +369,8 @@ export type BlogPostDefinition = {
   category: string;
   primaryKeyword: string;
   keywords: string[];
+  publishedAt?: string;
+  updatedAt?: string;
   relatedToolSlugs: ToolKey[];
 };
 
@@ -380,6 +382,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Images",
     primaryKeyword: "image compression for seo",
     keywords: ["compress images online", "reduce image size", "website speed optimization"],
+    publishedAt: "2025-02-10",
+    updatedAt: "2025-08-14",
     relatedToolSlugs: ["image-compressor", "image-resizer", "jpg-to-png"]
   },
   {
@@ -389,6 +393,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Images",
     primaryKeyword: "resize vs compress image",
     keywords: ["image optimization workflow", "image dimensions for web", "compress after resize"],
+    publishedAt: "2025-02-24",
+    updatedAt: "2025-08-20",
     relatedToolSlugs: ["image-resizer", "image-compressor", "jpg-to-png"]
   },
   {
@@ -398,6 +404,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Images",
     primaryKeyword: "jpg vs png seo",
     keywords: ["best image format for website", "png transparency use case", "optimize jpg for web"],
+    publishedAt: "2025-03-08",
+    updatedAt: "2025-09-02",
     relatedToolSlugs: ["jpg-to-png", "image-compressor", "image-resizer"]
   },
   {
@@ -407,6 +415,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Privacy",
     primaryKeyword: "browser based tools privacy",
     keywords: ["client-side processing", "online tool trust signals", "privacy friendly tools"],
+    publishedAt: "2025-03-22",
+    updatedAt: "2025-09-14",
     relatedToolSlugs: ["json-formatter", "word-counter", "pdf-merge"]
   },
   {
@@ -416,6 +426,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Privacy",
     primaryKeyword: "privacy copywriting",
     keywords: ["trust copy for tools", "privacy messaging examples", "conversion copywriting"],
+    publishedAt: "2025-04-05",
+    updatedAt: "2025-10-01",
     relatedToolSlugs: ["word-counter", "case-converter", "remove-duplicates"]
   },
   {
@@ -425,6 +437,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Developer",
     primaryKeyword: "json formatting mistakes",
     keywords: ["json parse error", "json validator workflow", "api payload debugging"],
+    publishedAt: "2025-04-19",
+    updatedAt: "2025-10-15",
     relatedToolSlugs: ["json-formatter", "base64-encoder-decoder", "url-encoder-decoder"]
   },
   {
@@ -434,6 +448,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Developer",
     primaryKeyword: "url encoding guide",
     keywords: ["encodeURIComponent tutorial", "query param encoding", "api url best practices"],
+    publishedAt: "2025-05-03",
+    updatedAt: "2025-10-29",
     relatedToolSlugs: ["url-encoder-decoder", "json-formatter", "base64-encoder-decoder"]
   },
   {
@@ -443,6 +459,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Developer",
     primaryKeyword: "base64 encoding use cases",
     keywords: ["base64 decode online", "base64 in APIs", "text encoding mistakes"],
+    publishedAt: "2025-05-17",
+    updatedAt: "2025-11-12",
     relatedToolSlugs: ["base64-encoder-decoder", "url-encoder-decoder", "json-formatter"]
   },
   {
@@ -452,6 +470,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "seo friendly url slug",
     keywords: ["slug best practices", "url structure seo", "clean url generator"],
+    publishedAt: "2025-05-31",
+    updatedAt: "2025-11-26",
     relatedToolSlugs: ["slug-generator", "case-converter", "whitespace-cleaner"]
   },
   {
@@ -461,6 +481,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "keyword clustering",
     keywords: ["topic clusters seo", "content silos", "seo planning for tools site"],
+    publishedAt: "2025-06-14",
+    updatedAt: "2025-12-10",
     relatedToolSlugs: ["slug-generator", "word-counter", "case-converter"]
   },
   {
@@ -470,6 +492,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "internal linking strategy",
     keywords: ["contextual links seo", "internal links for tools pages", "seo site architecture"],
+    publishedAt: "2025-06-28",
+    updatedAt: "2025-12-24",
     relatedToolSlugs: ["slug-generator", "word-counter", "remove-duplicates"]
   },
   {
@@ -479,6 +503,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "on page seo checklist",
     keywords: ["tool page seo", "meta title writing", "faq schema seo"],
+    publishedAt: "2025-07-12",
+    updatedAt: "2026-01-08",
     relatedToolSlugs: ["slug-generator", "word-counter", "json-formatter"]
   },
   {
@@ -488,6 +514,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Performance",
     primaryKeyword: "core web vitals optimization",
     keywords: ["improve lcp", "reduce cls", "nextjs performance tips"],
+    publishedAt: "2025-07-26",
+    updatedAt: "2026-01-22",
     relatedToolSlugs: ["image-compressor", "image-resizer", "jpg-to-png"]
   },
   {
@@ -497,6 +525,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "mobile seo best practices",
     keywords: ["mobile first seo", "responsive tool pages", "mobile ux seo"],
+    publishedAt: "2025-08-09",
+    updatedAt: "2026-02-05",
     relatedToolSlugs: ["word-counter", "age-calculator", "bmi-calculator"]
   },
   {
@@ -506,6 +536,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Text",
     primaryKeyword: "word counter online",
     keywords: ["character counter", "essay word limit", "content writing workflow"],
+    publishedAt: "2025-08-23",
+    updatedAt: "2026-02-12",
     relatedToolSlugs: ["word-counter", "case-converter", "remove-duplicates"]
   },
   {
@@ -515,6 +547,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Text",
     primaryKeyword: "case converter workflow",
     keywords: ["uppercase lowercase converter", "title case style", "content editing process"],
+    publishedAt: "2025-09-06",
+    updatedAt: "2026-02-13",
     relatedToolSlugs: ["case-converter", "whitespace-cleaner", "text-reverser"]
   },
   {
@@ -524,6 +558,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Text",
     primaryKeyword: "clean whitespace in text",
     keywords: ["remove extra spaces", "text cleanup tool", "formatting cleanup"],
+    publishedAt: "2025-09-20",
+    updatedAt: "2026-02-14",
     relatedToolSlugs: ["whitespace-cleaner", "remove-duplicates", "text-sorter"]
   },
   {
@@ -533,6 +569,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Text",
     primaryKeyword: "sort and dedupe lines",
     keywords: ["remove duplicate lines online", "sort text list", "data cleanup workflow"],
+    publishedAt: "2025-10-04",
+    updatedAt: "2026-02-15",
     relatedToolSlugs: ["text-sorter", "remove-duplicates", "whitespace-cleaner"]
   },
   {
@@ -542,6 +580,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Security",
     primaryKeyword: "secure password generator",
     keywords: ["strong password tips", "password length recommendation", "online security basics"],
+    publishedAt: "2025-10-18",
+    updatedAt: "2026-02-16",
     relatedToolSlugs: ["password-generator", "uuid-generator", "base64-encoder-decoder"]
   },
   {
@@ -551,6 +591,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Developer",
     primaryKeyword: "uuid v4 generator",
     keywords: ["what is uuid", "unique id generation", "uuid use cases"],
+    publishedAt: "2025-11-01",
+    updatedAt: "2026-02-17",
     relatedToolSlugs: ["uuid-generator", "json-formatter", "url-encoder-decoder"]
   },
   {
@@ -560,6 +602,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "PDF",
     primaryKeyword: "merge pdf online",
     keywords: ["combine pdf files", "pdf order workflow", "document merge tips"],
+    publishedAt: "2025-11-15",
+    updatedAt: "2026-02-18",
     relatedToolSlugs: ["pdf-merge", "word-to-pdf", "image-compressor"]
   },
   {
@@ -569,6 +613,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Document",
     primaryKeyword: "word to pdf converter online",
     keywords: ["docx to pdf tips", "document formatting", "pdf export quality"],
+    publishedAt: "2025-11-29",
+    updatedAt: "2026-02-19",
     relatedToolSlugs: ["word-to-pdf", "pdf-merge", "word-counter"]
   },
   {
@@ -578,6 +624,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Career",
     primaryKeyword: "cv writing tips",
     keywords: ["resume mistakes", "cv template guidance", "job application tips"],
+    publishedAt: "2025-12-13",
+    updatedAt: "2026-02-20",
     relatedToolSlugs: ["cv-builder", "word-counter", "case-converter"]
   },
   {
@@ -587,6 +635,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "Calculator",
     primaryKeyword: "bmi calculator online",
     keywords: ["age calculator online", "health tracking tools", "bmi category meaning"],
+    publishedAt: "2025-12-27",
+    updatedAt: "2026-02-21",
     relatedToolSlugs: ["age-calculator", "bmi-calculator", "word-counter"]
   },
   {
@@ -596,6 +646,8 @@ export const blogPosts: BlogPostDefinition[] = [
     category: "SEO",
     primaryKeyword: "tools blog content calendar",
     keywords: ["seo editorial calendar", "content planning", "publish consistency strategy"],
+    publishedAt: "2026-01-10",
+    updatedAt: "2026-02-22",
     relatedToolSlugs: ["slug-generator", "word-counter", "case-converter"]
   }
 ];

@@ -22,11 +22,11 @@ export const metadata: Metadata = {
     shortcut: ["/favicon.ico"],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }]
   },
-  description: "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.",
+  description: "Free online tools for images, text, PDF, JSON, and developers. Fast, simple, and client-side.",
   applicationName: siteConfig.name,
   openGraph: {
     title: siteConfig.name,
-    description: "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
+    description: "Free online tools for images, text, PDF, JSON, and developers with privacy-focused client-side processing.",
     type: "website",
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
-    description: "Fast, mobile-friendly online tools with privacy-focused client-side processing.",
+    description: "Free online tools for images, text, PDF, JSON, and developers with privacy-focused client-side processing.",
     images: ["/twitter-image"]
   },
   alternates: {

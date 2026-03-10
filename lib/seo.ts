@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { blogPosts, siteTools } from "@/lib/site-data";
 import { siteConfig } from "@/lib/site-config";
+import { getToolDescription, getToolHeading, getToolKeywords } from "@/lib/tool-seo-content";
 
 const siteUrl = siteConfig.url;
 const defaultDescription =
-  "Free online tools for images, text, calculations, JSON, and PDFs. Fast, simple, and client-side.";
+  "Free online tools for images, text, PDF, JSON, and developers. Fast, simple, mobile-friendly, and client-side.";
 const defaultKeywords = [
   "free online tools",
-  "image compressor",
-  "word counter",
-  "json formatter",
-  "pdf merge",
-  "seo tools website"
+  "free online tools for students and developers",
+  "all in one online tools website",
+  "best free online image compressor tool",
+  "json formatter and validator online",
+  "merge pdf files free online without watermark"
 ];
 const defaultOgImage = `${siteUrl}/opengraph-image`;
 
@@ -111,13 +112,14 @@ export function buildToolMetadata(slug: string): Metadata {
     });
   }
 
-  const seoTitle = `${tool.metaTitle} - Fast & Secure`;
-  const seoDescription = `${tool.metaDescription} No signup required. Simple interface with quick results on ${siteConfig.name}.`;
+  const seoTitle = getToolHeading(tool);
+  const seoDescription = `${getToolDescription(tool)} No signup required. Fast results on ${siteConfig.name}.`;
 
   return buildMetadata({
     title: seoTitle,
     description: seoDescription,
-    path: `/tools/${tool.slug}`
+    path: `/tools/${tool.slug}`,
+    keywords: getToolKeywords(tool)
   });
 }
 
@@ -235,8 +237,8 @@ export function buildToolSchema(slug: string) {
   return {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: tool.name,
-    description: tool.metaDescription,
+    name: getToolHeading(tool),
+    description: getToolDescription(tool),
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript and a modern browser",
@@ -272,12 +274,16 @@ export function buildBlogPostingSchema({
   slug,
   title,
   description,
-  keywords
+  keywords,
+  datePublished,
+  dateModified
 }: {
   slug: string;
   title: string;
   description: string;
   keywords?: string[];
+  datePublished?: string;
+  dateModified?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -285,8 +291,16 @@ export function buildBlogPostingSchema({
     headline: title,
     description,
     keywords,
+    image: [defaultOgImage],
     mainEntityOfPage: absoluteUrl(`/blog/${slug}`),
     url: absoluteUrl(`/blog/${slug}`),
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url
+    },
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

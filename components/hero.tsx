@@ -13,13 +13,13 @@ export function Hero() {
             <SiteLogo href="/" className="pointer-events-none" />
           </div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
-            Fast Online Utility Suite
+            Free Online Tools for Images, Text, PDF and Developers
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
-            Free online tools that work directly in your browser
+            Free Online Tools for Images, Text, PDF and Developers
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[var(--muted)]">
-            Compress images, resize files, clean text, format JSON, calculate BMI or age, and merge PDFs without sending your data to a paid API.
+            Compress images without losing quality online free, count words for essays, format JSON, merge PDF files, and run everyday browser-based tools without signup.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link

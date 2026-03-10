@@ -29,9 +29,9 @@ export default function BlogPage() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
         <section className="card p-6 md:p-8">
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">Blog</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">SEO-supporting articles</h1>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Helpful guides for common online tasks</h1>
           <p className="mt-3 max-w-2xl text-base text-[var(--muted)]">
-            These posts support the tools with evergreen explanations, optimization tips, and privacy-oriented usage guidance.
+            These posts explain common workflows around images, text, JSON, PDFs, privacy, and day-to-day browser-based tools.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {blogPosts.map((post) => (

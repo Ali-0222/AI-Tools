@@ -63,6 +63,86 @@ const categoryKeywords: Record<string, string[]> = {
 };
 
 const toolOverrides: Partial<Record<ToolKey, ToolSeoOverride>> = {
+  "background-remover": {
+    primaryKeyword: "remove background from image online free",
+    secondaryKeywords: [
+      "free background remover",
+      "remove image background and download png",
+      "transparent png maker online"
+    ],
+    faqs: [
+      {
+        question: "Can I remove background from image for free?",
+        answer:
+          "Yes. You can upload an image, remove the background, and download a transparent PNG without paid software."
+      },
+      {
+        question: "Why does the edge look rough after background removal?",
+        answer:
+          "Try adjusting threshold and edge softness. Cleaner source images with clear subject edges usually produce better output."
+      }
+    ]
+  },
+  "image-to-text-ocr": {
+    primaryKeyword: "image to text converter online free",
+    secondaryKeywords: [
+      "ocr online free",
+      "extract text from image",
+      "scan image and copy text"
+    ],
+    faqs: [
+      {
+        question: "Is this image to text OCR tool free?",
+        answer:
+          "Yes. You can upload an image and extract text in your browser, then copy the output for editing."
+      },
+      {
+        question: "How can I improve OCR results?",
+        answer:
+          "Use high-contrast, sharp images with readable fonts. Blurry photos and shadows can reduce text detection accuracy."
+      }
+    ]
+  },
+  "ai-paraphrasing-tool": {
+    primaryKeyword: "paraphrasing tool free online",
+    secondaryKeywords: [
+      "rewrite text online",
+      "ai paraphrasing tool for students",
+      "sentence rewriter free"
+    ],
+    faqs: [
+      {
+        question: "Can I paraphrase text online for free?",
+        answer:
+          "Yes. Paste your draft, choose tone and rewrite strength, then generate a new version that you can refine."
+      },
+      {
+        question: "Does paraphrased text still need proofreading?",
+        answer:
+          "Yes. Always review tone, facts, and clarity before publishing or submitting rewritten content."
+      }
+    ]
+  },
+  "qr-code-generator": {
+    primaryKeyword: "qr code generator online free",
+    secondaryKeywords: [
+      "create qr code free",
+      "qr code generator online",
+      "download qr code png"
+    ],
+    faqs: [
+      {
+        question: "Can I create a QR code for a URL?",
+        answer:
+          "Yes. Paste your link, generate the QR code, and download the PNG for sharing or printing."
+      },
+      {
+        question: "Which QR image size should I use?",
+        answer:
+          "Use larger sizes for print materials and signage, and smaller sizes for quick digital sharing."
+      }
+    ]
+  },
   "image-compressor": {
     primaryKeyword: "compress image without losing quality online free",
     secondaryKeywords: [

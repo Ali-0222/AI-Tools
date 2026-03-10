@@ -1,7 +1,10 @@
 export type ToolKey =
+  | "background-remover"
   | "image-compressor"
   | "image-resizer"
   | "jpg-to-png"
+  | "image-to-text-ocr"
+  | "ai-paraphrasing-tool"
   | "word-counter"
   | "case-converter"
   | "remove-duplicates"
@@ -16,6 +19,7 @@ export type ToolKey =
   | "age-calculator"
   | "bmi-calculator"
   | "json-formatter"
+  | "qr-code-generator"
   | "pdf-merge"
   | "word-to-pdf"
   | "cv-builder";
@@ -35,6 +39,25 @@ export type ToolDefinition = {
 };
 
 export const siteTools: ToolDefinition[] = [
+  {
+    name: "Background Remover",
+    slug: "background-remover",
+    shortTitle: "Remove background",
+    description:
+      "Remove image background automatically and download transparent PNG output directly in your browser.",
+    metaTitle: "Free Background Remover Online",
+    metaDescription:
+      "Remove background from image online free and download transparent PNG files in seconds.",
+    category: "Image",
+    pageTitle: "Background Remover",
+    pageDescription:
+      "Upload an image, remove the background, and export a transparent PNG for product listings or design edits.",
+    tips: [
+      "Upload an image with a clear subject and simple background for better accuracy.",
+      "Adjust threshold and edge softness until the cutout looks clean.",
+      "Download the final transparent PNG and use it in design, ecommerce, or social media posts."
+    ]
+  },
   {
     name: "Image Compressor",
     slug: "image-compressor",
@@ -81,6 +104,44 @@ export const siteTools: ToolDefinition[] = [
       "Select a JPG or JPEG file.",
       "Start the conversion to generate a PNG version in the browser.",
       "Preview the result and download the PNG file."
+    ]
+  },
+  {
+    name: "Image to Text (OCR)",
+    slug: "image-to-text-ocr",
+    shortTitle: "Extract text",
+    description:
+      "Extract editable text from images with browser OCR and copy output quickly for notes or documents.",
+    metaTitle: "Image to Text Converter Online Free",
+    metaDescription:
+      "Convert image to text online free using OCR and copy extracted text instantly.",
+    category: "Text",
+    pageTitle: "Image to Text (OCR)",
+    pageDescription:
+      "Upload an image and extract readable text for assignments, scanned pages, and note conversion.",
+    tips: [
+      "Use clear, high-resolution images for stronger OCR accuracy.",
+      "Keep text upright and avoid heavy shadows before extracting.",
+      "Review extracted text and correct minor OCR mistakes before final use."
+    ]
+  },
+  {
+    name: "AI Paraphrasing Tool",
+    slug: "ai-paraphrasing-tool",
+    shortTitle: "Paraphrase text",
+    description:
+      "Rewrite text with multiple tones in a browser-based paraphrasing helper built for drafts, blogs, and study notes.",
+    metaTitle: "AI Paraphrasing Tool Free Online",
+    metaDescription:
+      "Paraphrase and rewrite text online free with quick tone options for students and writers.",
+    category: "Text",
+    pageTitle: "AI Paraphrasing Tool",
+    pageDescription:
+      "Paste your content, choose a tone, and generate a cleaner rewrite for essays, posts, and everyday writing.",
+    tips: [
+      "Paste one clear paragraph at a time for easier review.",
+      "Choose tone and rewrite strength based on how much variation you need.",
+      "Always proofread the final output before publishing or submission."
     ]
   },
   {
@@ -305,6 +366,25 @@ export const siteTools: ToolDefinition[] = [
       "Paste raw JSON into the input area.",
       "Use the beautify button to validate and format the content.",
       "Copy the result or review the parse error message."
+    ]
+  },
+  {
+    name: "QR Code Generator",
+    slug: "qr-code-generator",
+    shortTitle: "Generate QR codes",
+    description:
+      "Create QR codes for links, text, and contact details, then download PNG output in your preferred size.",
+    metaTitle: "Free QR Code Generator Online",
+    metaDescription:
+      "Create QR code online free and download high-quality QR images for print and sharing.",
+    category: "Developer",
+    pageTitle: "QR Code Generator",
+    pageDescription:
+      "Generate a QR code in seconds for URLs, plain text, or contact details and download it as PNG.",
+    tips: [
+      "Use short and clean URLs for easier scanning.",
+      "Test the QR code on at least one mobile device before sharing.",
+      "Choose larger image size when printing on posters, labels, or cards."
     ]
   },
   {

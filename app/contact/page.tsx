@@ -27,7 +27,7 @@ export default function ContactPage() {
           </p>
           <ContactForm />
         </section>
-        {/* <AdSidebar /> */}
+        <AdSidebar />
       </div>
     </main>
   );

@@ -16,7 +16,7 @@ export function StaticPage({ title, description, children }: StaticPageProps) {
           <p className="mt-3 text-base text-[var(--muted)]">{description}</p>
           <div className="mt-6 space-y-4">{children}</div>
         </article>
-        {/* <AdSidebar /> */}
+        <AdSidebar />
       </div>
     </main>
   );

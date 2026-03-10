@@ -41,7 +41,7 @@ export default function ToolsPage() {
             ))}
           </div>
         </section>
-        {/* <AdSidebar /> */}
+        <AdSidebar />
       </div>
     </main>
   );

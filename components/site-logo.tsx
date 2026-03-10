@@ -18,7 +18,6 @@ export function SiteLogo({
         <svg
           aria-hidden="true"
           viewBox="0 0 48 48"
-          className="h-7 w-7"
           fill="none"
           strokeWidth="2.5"
           strokeLinecap="round"
@@ -34,7 +33,7 @@ export function SiteLogo({
         </svg>
       </span>
       {compact ? null : (
-        <span className="flex flex-col leading-none">
+        <span className="flex flex-col leading-none" style={{marginTop: "5px"}}>
           <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">
             Toolbee
           </span>

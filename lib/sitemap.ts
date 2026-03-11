@@ -22,14 +22,7 @@ type SitemapIndexEntry = {
   lastmod?: string;
 };
 
-const APP_DIR = path.join(process.cwd(), "app");
 const SITE_DATA_FILE = path.join(process.cwd(), "lib", "site-data.ts");
-const NON_INDEXABLE_ROUTES = new Set([
-  "/auth/login",
-  "/auth/register",
-  "/auth/forgot-password",
-  "/profile"
-]);
 
 export function escapeXml(value: string) {
   return value
@@ -76,37 +69,6 @@ export function buildSitemapIndexXml(entries: SitemapIndexEntry[]) {
   );
 }
 
-async function readPageFiles(dir: string): Promise<string[]> {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  const files = await Promise.all(
-    entries.map(async (entry) => {
-      const absolutePath = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        return readPageFiles(absolutePath);
-      }
-      return entry.name === "page.tsx" ? [absolutePath] : [];
-    })
-  );
-
-  return files.flat();
-}
-
-function resolveRouteFromPageFile(pageFilePath: string) {
-  const relative = path.relative(APP_DIR, pageFilePath).replaceAll("\\", "/");
-  const withoutFile = relative.replace(/\/page\.tsx$/, "").replace(/^page\.tsx$/, "");
-  const segments = withoutFile
-    .split("/")
-    .filter(Boolean)
-    .filter((segment) => !segment.startsWith("(") && !segment.endsWith(")"));
-
-  if (segments.some((segment) => segment.includes("[") || segment.includes("]"))) {
-    return null;
-  }
-
-  const route = `/${segments.join("/")}`;
-  return route === "/" || route === "//" ? "/" : route;
-}
-
 export async function getFileLastModified(filePath: string) {
   try {
     const stats = await fs.stat(filePath);
@@ -118,21 +80,4 @@ export async function getFileLastModified(filePath: string) {
 
 export async function getSiteDataLastModified() {
   return getFileLastModified(SITE_DATA_FILE);
-}
-
-export async function getStaticPageRoutes() {
-  const pageFiles = await readPageFiles(APP_DIR);
-  const routeMap = new Map<string, { route: string; lastmod?: string }>();
-
-  for (const pageFile of pageFiles) {
-    const route = resolveRouteFromPageFile(pageFile);
-    if (!route || NON_INDEXABLE_ROUTES.has(route)) {
-      continue;
-    }
-
-    const lastmod = await getFileLastModified(pageFile);
-    routeMap.set(route, { route, lastmod });
-  }
-
-  return [...routeMap.values()].sort((a, b) => a.route.localeCompare(b.route));
 }

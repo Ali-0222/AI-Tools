@@ -1,14 +1,15 @@
 import { siteConfig } from "@/lib/site-config";
-import { buildSitemapXml, getStaticPageRoutes } from "@/lib/sitemap";
+import { buildSitemapXml, getSiteDataLastModified } from "@/lib/sitemap";
+import { staticPageRoutes } from "@/lib/static-pages";
 
 export async function GET() {
-  const staticPages = await getStaticPageRoutes();
+  const lastmod = await getSiteDataLastModified();
   const xml = buildSitemapXml(
-    staticPages.map((page) => ({
-      loc: `${siteConfig.url}${page.route}`,
-      lastmod: page.lastmod,
+    staticPageRoutes.map((route) => ({
+      loc: `${siteConfig.url}${route}`,
+      lastmod,
       changefreq: "weekly" as const,
-      priority: page.route === "/" ? 1 : 0.8
+      priority: route === "/" ? 1 : 0.8
     }))
   );
 

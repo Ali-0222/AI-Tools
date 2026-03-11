@@ -15,6 +15,7 @@ const defaultKeywords = [
   "merge pdf files free online without watermark"
 ];
 const defaultOgImage = `${siteUrl}/opengraph-image`;
+const organizationLogo = `${siteUrl}/icon-192.png`;
 
 type MetadataInput = {
   title?: string;
@@ -149,7 +150,9 @@ export function buildOrganizationSchema() {
     "@type": "Organization",
     name: siteConfig.name,
     url: siteConfig.url,
-    email: siteConfig.email
+    email: siteConfig.email,
+    logo: organizationLogo,
+    image: organizationLogo
   };
 }
 
@@ -304,7 +307,11 @@ export function buildBlogPostingSchema({
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
-      url: siteConfig.url
+      url: siteConfig.url,
+      logo: {
+        "@type": "ImageObject",
+        url: organizationLogo
+      }
     }
   };
 }

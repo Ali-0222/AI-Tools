@@ -48,6 +48,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/"
+  },
+  other: {
+    "google-adsense-account": siteConfig.adsenseAccount
   }
 };
 
@@ -59,6 +62,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseAccount}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-RJTFPY0G35"

@@ -13,6 +13,7 @@ type CvTemplate = {
   accent: string;
   layout: "classic" | "modern" | "sidebar";
   summary: string;
+  badge: string;
 };
 
 type CvData = {
@@ -27,13 +28,94 @@ type CvData = {
   skills: string;
 };
 
+type DraftRecord = {
+  templateId: string;
+  form: CvData;
+};
+
+const LOCAL_DRAFT_KEY = "toolbeepro.cv-builder-draft";
+
 const templates: CvTemplate[] = [
-  { id: "executive-red", name: "Executive Red", accent: "#d92d20", layout: "classic", summary: "Balanced business resume with strong section hierarchy." },
-  { id: "metro-blue", name: "Metro Blue", accent: "#2563eb", layout: "modern", summary: "Clean modern header with a strong professional top band." },
-  { id: "charcoal-pro", name: "Charcoal Pro", accent: "#1f2937", layout: "modern", summary: "Minimal grayscale layout for corporate and tech roles." },
-  { id: "emerald-side", name: "Emerald Side", accent: "#0f766e", layout: "sidebar", summary: "Sidebar profile layout ideal for creative and operations roles." },
-  { id: "amber-line", name: "Amber Line", accent: "#b45309", layout: "classic", summary: "Warm editorial style with polished content rhythm." },
-  { id: "violet-edge", name: "Violet Edge", accent: "#6d28d9", layout: "sidebar", summary: "Bold visual split layout with strong left profile column." }
+  {
+    id: "executive-red",
+    name: "Executive Red",
+    accent: "#d92d20",
+    layout: "classic",
+    summary: "Balanced business resume with strong section hierarchy.",
+    badge: "Executive"
+  },
+  {
+    id: "metro-blue",
+    name: "Metro Blue",
+    accent: "#2563eb",
+    layout: "modern",
+    summary: "Clean modern header with a strong professional top band.",
+    badge: "Corporate"
+  },
+  {
+    id: "charcoal-pro",
+    name: "Charcoal Pro",
+    accent: "#1f2937",
+    layout: "modern",
+    summary: "Minimal grayscale layout for corporate and tech roles.",
+    badge: "Minimal"
+  },
+  {
+    id: "emerald-side",
+    name: "Emerald Side",
+    accent: "#0f766e",
+    layout: "sidebar",
+    summary: "Sidebar profile layout ideal for creative and operations roles.",
+    badge: "Creative"
+  },
+  {
+    id: "amber-line",
+    name: "Amber Line",
+    accent: "#b45309",
+    layout: "classic",
+    summary: "Warm editorial style with polished content rhythm.",
+    badge: "Warm"
+  },
+  {
+    id: "violet-edge",
+    name: "Violet Edge",
+    accent: "#6d28d9",
+    layout: "sidebar",
+    summary: "Bold visual split layout with strong left profile column.",
+    badge: "Bold"
+  },
+  {
+    id: "navy-stripe",
+    name: "Navy Stripe",
+    accent: "#1d4ed8",
+    layout: "modern",
+    summary: "Confident recruiter-friendly layout with crisp top structure.",
+    badge: "ATS-Friendly"
+  },
+  {
+    id: "rose-minimal",
+    name: "Rose Minimal",
+    accent: "#e11d48",
+    layout: "classic",
+    summary: "Soft premium style with simple spacing for polished applications.",
+    badge: "Elegant"
+  },
+  {
+    id: "forest-grid",
+    name: "Forest Grid",
+    accent: "#166534",
+    layout: "modern",
+    summary: "Structured two-column feel for product, finance, and analyst roles.",
+    badge: "Structured"
+  },
+  {
+    id: "slate-column",
+    name: "Slate Column",
+    accent: "#475569",
+    layout: "sidebar",
+    summary: "Serious left-column resume for operations, admin, and leadership roles.",
+    badge: "Professional"
+  }
 ];
 
 const initialCvData: CvData = {
@@ -42,11 +124,62 @@ const initialCvData: CvData = {
   email: "you@example.com",
   phone: "+1 555 000 0000",
   location: "City, Country",
-  summary: "Write a short professional summary highlighting your strengths, achievements, and the kind of role you are targeting.",
-  experience: "Senior Role at Company\n2022 - Present\nDescribe your impact, responsibilities, and measurable achievements.\n\nPrevious Role at Company\n2019 - 2022\nAdd strong bullet-style accomplishments and project outcomes.",
+  summary:
+    "Write a short professional summary highlighting your strengths, achievements, and the kind of role you are targeting.",
+  experience:
+    "Senior Role at Company\n2022 - Present\nDescribe your impact, responsibilities, and measurable achievements.\n\nPrevious Role at Company\n2019 - 2022\nAdd strong bullet-style accomplishments and project outcomes.",
   education: "Bachelor's Degree\nUniversity Name\nGraduation Year",
   skills: "Leadership, Communication, Excel, Figma, Project Management, Problem Solving"
 };
+
+function isCvData(value: unknown): value is CvData {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const record = value as Record<string, unknown>;
+  return [
+    "fullName",
+    "jobTitle",
+    "email",
+    "phone",
+    "location",
+    "summary",
+    "experience",
+    "education",
+    "skills"
+  ].every((key) => typeof record[key] === "string");
+}
+
+function readLocalDraft(): DraftRecord | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    const raw = window.localStorage.getItem(LOCAL_DRAFT_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw) as DraftRecord;
+    if (!parsed || typeof parsed.templateId !== "string" || !isCvData(parsed.form)) {
+      return null;
+    }
+
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeLocalDraft(record: DraftRecord) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.localStorage.setItem(LOCAL_DRAFT_KEY, JSON.stringify(record));
+}
 
 export function CvBuilderTool() {
   const { configured, user, ready } = useAuth();
@@ -56,9 +189,10 @@ export function CvBuilderTool() {
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [saving, setSaving] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [draftLoaded, setDraftLoaded] = useState(false);
 
   useEffect(() => {
-    if (!ready || !user || !configured) {
+    if (!ready) {
       return;
     }
 
@@ -66,11 +200,19 @@ export function CvBuilderTool() {
 
     void (async () => {
       try {
-        setLoadingProfile(true);
-        const savedCv = await loadCvForUser(user.id);
-        if (!cancelled && savedCv) {
-          setSelectedTemplateId(savedCv.templateId);
-          setForm(savedCv.form);
+        const localDraft = readLocalDraft();
+        if (!cancelled && localDraft) {
+          setSelectedTemplateId(localDraft.templateId);
+          setForm(localDraft.form);
+        }
+
+        if (user && configured) {
+          setLoadingProfile(true);
+          const savedCv = await loadCvForUser(user.id);
+          if (!cancelled && savedCv) {
+            setSelectedTemplateId(savedCv.templateId);
+            setForm(savedCv.form);
+          }
         }
       } catch (error) {
         if (!cancelled) {
@@ -79,6 +221,7 @@ export function CvBuilderTool() {
       } finally {
         if (!cancelled) {
           setLoadingProfile(false);
+          setDraftLoaded(true);
         }
       }
     })();
@@ -87,6 +230,17 @@ export function CvBuilderTool() {
       cancelled = true;
     };
   }, [configured, ready, user]);
+
+  useEffect(() => {
+    if (!draftLoaded || (user && configured)) {
+      return;
+    }
+
+    writeLocalDraft({
+      templateId: selectedTemplateId,
+      form
+    });
+  }, [configured, draftLoaded, form, selectedTemplateId, user]);
 
   const selectedTemplate = useMemo(
     () => templates.find((template) => template.id === selectedTemplateId) ?? templates[0],
@@ -99,18 +253,24 @@ export function CvBuilderTool() {
   }
 
   async function saveCv() {
-    if (!user || !configured) {
-      return;
-    }
-
     try {
       setSaving(true);
       setStatus("");
-      await saveCvForUser(user.id, {
+
+      if (user && configured) {
+        await saveCvForUser(user.id, {
+          templateId: selectedTemplateId,
+          form
+        });
+        setStatus("CV saved to your profile.");
+        return;
+      }
+
+      writeLocalDraft({
         templateId: selectedTemplateId,
         form
       });
-      setStatus("CV saved to your profile.");
+      setStatus("Draft saved in this browser. Login is optional if you want profile sync.");
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Unable to save CV.");
     } finally {
@@ -152,7 +312,7 @@ export function CvBuilderTool() {
       <section className="space-y-3">
         <h2 className="text-xl font-bold">Choose a template</h2>
         <p className="text-sm leading-6 text-[var(--muted)]">
-          Preview six responsive CV templates. Login is required for editing, saving to profile, and syncing resume data across sessions.
+          Choose from ten polished CV templates, edit instantly without login, download PDF, and sign in later only if you want profile sync.
         </p>
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {templates.map((template) => (
@@ -167,114 +327,183 @@ export function CvBuilderTool() {
               }`}
             >
               <TemplateThumb template={template} />
-              <p className="mt-3 font-semibold">{template.name}</p>
+              <div className="mt-3 flex items-center justify-between gap-3">
+                <p className="font-semibold">{template.name}</p>
+                <span
+                  className="rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ backgroundColor: `${template.accent}14`, color: template.accent }}
+                >
+                  {template.badge}
+                </span>
+              </div>
               <p className="mt-1 text-sm leading-6 text-[var(--muted)]">{template.summary}</p>
             </button>
           ))}
         </div>
       </section>
 
-      {!user ? (
-        <section className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-3xl border border-[var(--border)] bg-white p-6">
-            <h2 className="text-xl font-bold">Login to edit, save, and download</h2>
-            <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-              Users can preview templates before login. To fill the form, save the selected CV in profile, use Google sign-in, email login, or reset password, configure Firebase and sign in.
+      <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+        <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6">
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4">
+            <p className="text-sm font-semibold text-[var(--foreground)]">
+              {user
+                ? "Profile sync is active for this CV."
+                : "No login needed. Your draft stays available in this browser."}
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/auth/login" className="rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white">
-                Login
-              </Link>
-              <Link href="/auth/register" className="rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-semibold">
-                Create account
-              </Link>
-            </div>
+            <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+              {user
+                ? "You can edit, download, and save this CV to your profile. Your browser draft still works as a fallback."
+                : configured
+                  ? "You can edit and download right away. If you sign in later, you can also sync the same CV to your profile."
+                  : "You can edit, save in this browser, and download PDF without any account setup."}
+            </p>
           </div>
-          <CvPreview selectedTemplate={selectedTemplate} form={form} />
-        </section>
-      ) : (
-        <section className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-          <div className="rounded-3xl border border-[var(--border)] bg-white p-5 md:p-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-xl font-bold">Edit selected template</h2>
-              {loadingProfile ? <span className="text-sm text-[var(--muted)]">Loading saved CV...</span> : null}
-            </div>
-            <div className="mt-5 grid gap-4">
+
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-xl font-bold">Edit selected template</h2>
+            {loadingProfile ? <span className="text-sm text-[var(--muted)]">Loading saved CV...</span> : null}
+          </div>
+
+          <div className="mt-5 grid gap-4">
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Full name</span>
+              <input
+                value={form.fullName}
+                onChange={(event) => updateField("fullName", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Job title</span>
+              <input
+                value={form.jobTitle}
+                onChange={(event) => updateField("jobTitle", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <div className="grid gap-4 md:grid-cols-2">
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Full name</span>
-                <input value={form.fullName} onChange={(event) => updateField("fullName", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
+                <span className="mb-2 block text-sm font-semibold">Email</span>
+                <input
+                  value={form.email}
+                  onChange={(event) => updateField("email", event.target.value)}
+                  className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+                />
               </label>
               <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Job title</span>
-                <input value={form.jobTitle} onChange={(event) => updateField("jobTitle", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-              </label>
-              <div className="grid gap-4 md:grid-cols-2">
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold">Email</span>
-                  <input value={form.email} onChange={(event) => updateField("email", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-                </label>
-                <label className="block">
-                  <span className="mb-2 block text-sm font-semibold">Phone</span>
-                  <input value={form.phone} onChange={(event) => updateField("phone", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-                </label>
-              </div>
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Location</span>
-                <input value={form.location} onChange={(event) => updateField("location", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Summary</span>
-                <textarea rows={4} value={form.summary} onChange={(event) => updateField("summary", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Experience</span>
-                <textarea rows={7} value={form.experience} onChange={(event) => updateField("experience", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Education</span>
-                <textarea rows={5} value={form.education} onChange={(event) => updateField("education", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
-              </label>
-              <label className="block">
-                <span className="mb-2 block text-sm font-semibold">Skills</span>
-                <textarea rows={3} value={form.skills} onChange={(event) => updateField("skills", event.target.value)} className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3" />
+                <span className="mb-2 block text-sm font-semibold">Phone</span>
+                <input
+                  value={form.phone}
+                  onChange={(event) => updateField("phone", event.target.value)}
+                  className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+                />
               </label>
             </div>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <ToolButton onClick={saveCv} disabled={!configured || saving}>
-                {saving ? "Saving..." : "Save CV"}
-              </ToolButton>
-              <ToolButton variant="secondary" onClick={downloadPdf} disabled={downloading}>
-                {downloading ? "Preparing PDF..." : "Download CV PDF"}
-              </ToolButton>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Location</span>
+              <input
+                value={form.location}
+                onChange={(event) => updateField("location", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Summary</span>
+              <textarea
+                rows={4}
+                value={form.summary}
+                onChange={(event) => updateField("summary", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Experience</span>
+              <textarea
+                rows={7}
+                value={form.experience}
+                onChange={(event) => updateField("experience", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Education</span>
+              <textarea
+                rows={5}
+                value={form.education}
+                onChange={(event) => updateField("education", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-semibold">Skills</span>
+              <textarea
+                rows={3}
+                value={form.skills}
+                onChange={(event) => updateField("skills", event.target.value)}
+                className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
+              />
+            </label>
+          </div>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            <ToolButton onClick={saveCv} disabled={saving}>
+              {saving
+                ? "Saving..."
+                : user && configured
+                  ? "Save to profile"
+                  : "Save in browser"}
+            </ToolButton>
+            <ToolButton variant="secondary" onClick={downloadPdf} disabled={downloading}>
+              {downloading ? "Preparing PDF..." : "Download CV PDF"}
+            </ToolButton>
+            {user ? (
               <Link href="/profile" className="rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-semibold">
                 Go to profile
               </Link>
-            </div>
-            {status ? <p className="mt-4 text-sm text-[var(--accent)]">{status}</p> : null}
+            ) : configured ? (
+              <Link href="/auth/login" className="rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-semibold">
+                Login to sync
+              </Link>
+            ) : null}
           </div>
-          <CvPreview selectedTemplate={selectedTemplate} form={form} />
-        </section>
-      )}
+
+          {status ? <p className="mt-4 text-sm text-[var(--accent)]">{status}</p> : null}
+        </div>
+
+        <CvPreview selectedTemplate={selectedTemplate} form={form} />
+      </section>
     </div>
   );
 }
 
 function TemplateThumb({ template }: { template: CvTemplate }) {
+  const softAccent = `${template.accent}18`;
+  const softAccentStrong = `${template.accent}30`;
+
   return (
     <div
       className="overflow-hidden rounded-2xl border border-[var(--border)] bg-white"
       style={{
         background:
           template.layout === "sidebar"
-            ? `linear-gradient(90deg, ${template.accent} 0 26%, #ffffff 26% 100%)`
+            ? `linear-gradient(90deg, ${template.accent} 0 26%, ${softAccent} 26% 100%)`
             : template.layout === "modern"
-              ? `linear-gradient(180deg, ${template.accent} 0 18%, #ffffff 18% 100%)`
-              : "#ffffff"
+              ? `linear-gradient(180deg, ${template.accent} 0 20%, #ffffff 20% 100%)`
+              : `linear-gradient(180deg, ${softAccent} 0 100%)`
       }}
     >
       <div className="min-h-40 p-4">
-        <div className="rounded-xl bg-white/95 p-3 shadow-sm">
-          <div className="h-3 w-24 rounded-full" style={{ backgroundColor: template.accent }} />
+        <div
+          className="rounded-xl p-3 shadow-sm"
+          style={{
+            backgroundColor: "#ffffff",
+            border: template.layout === "classic" ? `1px solid ${softAccentStrong}` : undefined
+          }}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="h-3 w-24 rounded-full" style={{ backgroundColor: template.accent }} />
+            <div className="h-3 w-10 rounded-full" style={{ backgroundColor: softAccentStrong }} />
+          </div>
           <div className="mt-3 h-2 w-16 rounded-full bg-slate-200" />
           <div className="mt-4 grid gap-2">
             <div className="h-2 rounded-full bg-slate-200" />
@@ -290,6 +519,7 @@ function TemplateThumb({ template }: { template: CvTemplate }) {
 
 const CvPreview = ({ selectedTemplate, form }: { selectedTemplate: CvTemplate; form: CvData }) => {
   const accentStyle = { backgroundColor: selectedTemplate.accent, borderColor: selectedTemplate.accent };
+  const panelTint = `${selectedTemplate.accent}10`;
 
   if (selectedTemplate.layout === "sidebar") {
     return (
@@ -303,15 +533,17 @@ const CvPreview = ({ selectedTemplate, form }: { selectedTemplate: CvTemplate; f
               <p>{form.phone}</p>
               <p>{form.location}</p>
             </div>
-            <div className="mt-8">
+            <div className="mt-8 rounded-2xl border border-white/15 bg-white/10 p-4">
               <h4 className="text-sm font-bold uppercase tracking-[0.16em]">Skills</h4>
               <p className="mt-3 whitespace-pre-line text-sm leading-7 text-white/90">{form.skills}</p>
             </div>
           </aside>
-          <div className="p-6 md:p-8">
-            <PreviewSection title="Summary" accent={selectedTemplate.accent} text={form.summary} />
-            <PreviewSection title="Experience" accent={selectedTemplate.accent} text={form.experience} className="mt-7" />
-            <PreviewSection title="Education" accent={selectedTemplate.accent} text={form.education} className="mt-7" />
+          <div className="p-6 md:p-8" style={{ backgroundColor: panelTint }}>
+            <div className="rounded-[28px] bg-white p-6 shadow-[0_18px_36px_rgba(15,23,42,0.08)] md:p-7">
+              <PreviewSection title="Summary" accent={selectedTemplate.accent} text={form.summary} />
+              <PreviewSection title="Experience" accent={selectedTemplate.accent} text={form.experience} className="mt-7" />
+              <PreviewSection title="Education" accent={selectedTemplate.accent} text={form.education} className="mt-7" />
+            </div>
           </div>
         </div>
       </div>
@@ -335,7 +567,7 @@ const CvPreview = ({ selectedTemplate, form }: { selectedTemplate: CvTemplate; f
             <PreviewSection title="Summary" accent={selectedTemplate.accent} text={form.summary} />
             <PreviewSection title="Experience" accent={selectedTemplate.accent} text={form.experience} className="mt-7" />
           </div>
-          <div>
+          <div className="rounded-[28px] p-5 md:p-6" style={{ backgroundColor: panelTint }}>
             <PreviewSection title="Education" accent={selectedTemplate.accent} text={form.education} />
             <PreviewSection title="Skills" accent={selectedTemplate.accent} text={form.skills} className="mt-7" />
           </div>
@@ -346,7 +578,7 @@ const CvPreview = ({ selectedTemplate, form }: { selectedTemplate: CvTemplate; f
 
   return (
     <div className="overflow-hidden rounded-[32px] border border-[var(--border)] bg-white p-6 shadow-[0_20px_50px_rgba(15,23,42,0.08)] md:p-8">
-      <div className="border-b pb-6" style={{ borderColor: selectedTemplate.accent }}>
+      <div className="rounded-[28px] border-b p-6 md:p-7" style={{ borderColor: selectedTemplate.accent, backgroundColor: panelTint }}>
         <div className="h-1 w-28 rounded-full" style={accentStyle} />
         <h3 className="mt-5 text-4xl font-bold text-[var(--foreground)]">{form.fullName}</h3>
         <p className="mt-2 text-lg font-semibold text-[var(--muted)]">{form.jobTitle}</p>

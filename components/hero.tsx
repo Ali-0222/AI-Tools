@@ -4,6 +4,10 @@ import { siteTools } from "@/lib/site-data";
 
 export function Hero() {
   const loginRequiredCount = siteTools.filter((tool) => tool.authRequired).length;
+  const accessStat =
+    loginRequiredCount === 0
+      ? ["No signup", "Needed for any tool"]
+      : [String(loginRequiredCount), "Tool needs login"];
 
   return (
     <section className="card overflow-hidden p-6 md:p-10">
@@ -41,7 +45,7 @@ export function Hero() {
           {[
             [String(siteTools.length), "Dedicated tool pages"],
             ["100%", "Client-side processing"],
-            [String(loginRequiredCount), "Tool needs login"],
+            accessStat,
             ["Fast", "Mobile-first layout"]
           ].map(([value, label]) => (
             <div key={label} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">

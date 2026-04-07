@@ -423,18 +423,17 @@ export const siteTools: ToolDefinition[] = [
     name: "CV Builder",
     slug: "cv-builder",
     shortTitle: "Build CV",
-    description: "Choose a professional CV template, fill your details, preview live, and save your resume profile.",
+    description: "Choose a professional CV template, edit instantly without login, preview live, and download your resume as PDF.",
     metaTitle: "Online CV Builder with Templates",
-    metaDescription: "Build a CV online using professional templates, live preview, and profile-based saved resumes.",
+    metaDescription: "Build a CV online using professional templates, live preview, browser save, and PDF download without signup.",
     category: "Career",
     pageTitle: "CV Builder",
-    pageDescription: "Pick a template, edit details live, and save your resume to your profile.",
+    pageDescription: "Pick a template, edit details live, save in your browser, and download your CV instantly.",
     tips: [
       "Choose one of the available CV templates.",
       "Fill in your profile, experience, education, and skills.",
-      "Preview the CV live and save it to your profile when complete."
-    ],
-    authRequired: true
+      "Preview the CV live, save your draft in the browser, and download the final PDF when complete."
+    ]
   }
 ];
 

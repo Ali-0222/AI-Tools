@@ -3,6 +3,7 @@ export type ToolKey =
   | "image-compressor"
   | "image-resizer"
   | "jpg-to-png"
+  | "webp-to-png"
   | "image-to-text-ocr"
   | "ai-paraphrasing-tool"
   | "word-counter"
@@ -103,6 +104,22 @@ export const siteTools: ToolDefinition[] = [
     tips: [
       "Select a JPG or JPEG file.",
       "Start the conversion to generate a PNG version in the browser.",
+      "Preview the result and download the PNG file."
+    ]
+  },
+  {
+    name: "WebP to PNG Converter",
+    slug: "webp-to-png",
+    shortTitle: "Convert WebP to PNG",
+    description: "Convert WebP images to PNG format in your browser and download the converted file instantly.",
+    metaTitle: "Free WebP to PNG Converter Online",
+    metaDescription: "Convert WebP to PNG online for free with a fast browser-based image converter.",
+    category: "Image",
+    pageTitle: "WebP to PNG",
+    pageDescription: "Upload a WebP image, convert it to PNG, and download the output directly in your browser.",
+    tips: [
+      "Select a WebP image from your device.",
+      "Convert the file to generate a PNG version in the browser.",
       "Preview the result and download the PNG file."
     ]
   },

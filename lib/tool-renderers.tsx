@@ -20,6 +20,7 @@ import { TextReverserTool } from "@/components/tools/text-reverser-tool";
 import { TextSorterTool } from "@/components/tools/text-sorter-tool";
 import { UrlEncoderDecoderTool } from "@/components/tools/url-encoder-decoder-tool";
 import { UuidGeneratorTool } from "@/components/tools/uuid-generator-tool";
+import { WebpToPngTool } from "@/components/tools/webp-to-png-tool";
 import { WhitespaceCleanerTool } from "@/components/tools/whitespace-cleaner-tool";
 import { WordCounterTool } from "@/components/tools/word-counter-tool";
 import { WordToPdfTool } from "@/components/tools/word-to-pdf-tool";
@@ -47,6 +48,7 @@ const toolComponentMap: Record<ToolKey, React.ReactNode> = {
   "text-sorter": <TextSorterTool />,
   "url-encoder-decoder": <UrlEncoderDecoderTool />,
   "uuid-generator": <UuidGeneratorTool />,
+  "webp-to-png": <WebpToPngTool />,
   "whitespace-cleaner": <WhitespaceCleanerTool />,
   "word-counter": <WordCounterTool />,
   "word-to-pdf": <WordToPdfTool />

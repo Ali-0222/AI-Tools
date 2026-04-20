@@ -75,18 +75,53 @@ export default function HomePage() {
           <section className="card p-6 md:p-8">
             <SectionHeading
               eyebrow="Why This Site"
-              title="Built for clarity, speed, and practical use"
-              text="Each page is designed to help users complete one task quickly with clear steps, simple actions, and helpful supporting information."
+              title="Built to be useful before it tries to monetize"
+              text="Each page is meant to solve a real task, explain the workflow, and give users enough context to decide what to do next."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {[
-                "Client-side tools protect user files and text.",
-                "Static content pages support trust, crawl depth, and AdSense review.",
-                `Internal linking improves crawlability across ${getToolCountLabel().toLowerCase()}.`
+                "Tool pages include instructions, supporting copy, and related workflows instead of empty templates.",
+                "Static pages explain ownership, privacy, editorial standards, and how to contact the publisher.",
+                `Internal linking helps users move across ${getToolCountLabel().toLowerCase()} without dead ends.`
               ].map((item) => (
                 <div key={item} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5 text-sm leading-6 text-[var(--muted)]">
                   {item}
                 </div>
+              ))}
+            </div>
+          </section>
+          <section className="card p-6 md:p-8">
+            <SectionHeading
+              eyebrow="Review Readiness"
+              title="Signals that make the site easier to trust"
+              text="Ad-supported sites need more than traffic and tools. They also need clear ownership, useful content, and a clean user experience."
+            />
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {[
+                [
+                  "Transparent publisher pages",
+                  "About, privacy, disclaimer, contact, and editorial pages explain who runs the site and how pages are maintained."
+                ],
+                [
+                  "Practical content around every tool",
+                  "Visitors can see what the tool does, when to use it, what to watch out for, and which page should come next."
+                ],
+                [
+                  "Navigation that supports task completion",
+                  "Core pages link naturally to related tools, blog guides, and policy pages instead of pushing users into empty loops."
+                ],
+                [
+                  "Honest limitations",
+                  "The site explains that outputs should be reviewed and that browser tools are best for quick workflows rather than high-stakes professional review."
+                ]
+              ].map(([title, text]) => (
+                <article
+                  key={title}
+                  className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6"
+                >
+                  <h2 className="text-xl font-bold">{title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{text}</p>
+                </article>
               ))}
             </div>
           </section>
@@ -146,8 +181,8 @@ export default function HomePage() {
           <section className="card p-6 md:p-8">
             <SectionHeading
               eyebrow="Blog"
-              title="Helpful articles that make tool usage easier"
-              text="Read practical guides, examples, and step-by-step tips so users can get better results from image, text, PDF, and developer tools."
+              title="Helpful articles that support the tools"
+              text="Read practical guides, workflow notes, and examples that add context beyond the tool interface itself."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {blogPosts.map((post) => (
@@ -163,6 +198,17 @@ export default function HomePage() {
                   <p className="mt-2 text-sm text-[var(--muted)]">{post.description}</p>
                 </Link>
               ))}
+            </div>
+            <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+                Publisher notes
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
+                The site aims to publish pages that have a clear purpose, original utility, and
+                enough supporting information to help visitors finish a task confidently. Policy,
+                privacy, and contact pages are kept accessible from every screen so the publisher is
+                easy to identify during review.
+              </p>
             </div>
           </section>
         </div>

@@ -45,6 +45,30 @@ export function ToolSeoContent({ tool, relatedTools, relatedLandingPages }: Tool
 
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
+            <h2 className="text-2xl font-bold text-[var(--foreground)]">Best for</h2>
+            <ul className="space-y-3 text-[var(--muted)]">
+              {seoData.bestFor.map((item) => (
+                <li key={item} className="leading-7">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
+            <h2 className="text-2xl font-bold text-[var(--foreground)]">Before you start</h2>
+            <ul className="space-y-3 text-[var(--muted)]">
+              {seoData.beforeYouStart.map((item) => (
+                <li key={item} className="leading-7">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
             <h2 className="text-2xl font-bold text-[var(--foreground)]">Use cases</h2>
             <ul className="space-y-3 text-[var(--muted)]">
               {seoData.useCases.map((item) => (
@@ -65,6 +89,24 @@ export function ToolSeoContent({ tool, relatedTools, relatedLandingPages }: Tool
                 </article>
               ))}
             </div>
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
+            <h2 className="text-2xl font-bold text-[var(--foreground)]">Limitations</h2>
+            <ul className="space-y-3 text-[var(--muted)]">
+              {seoData.limitations.map((item) => (
+                <li key={item} className="leading-7">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
+            <h2 className="text-2xl font-bold text-[var(--foreground)]">Privacy and processing</h2>
+            <p className="leading-8 text-[var(--muted)]">{seoData.privacyNote}</p>
           </div>
         </div>
 

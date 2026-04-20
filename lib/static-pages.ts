@@ -7,10 +7,10 @@ export const staticPageRoutes = [
   "/compress-image-to-50kb",
   "/contact",
   "/disclaimer",
+  "/editorial-guidelines",
   "/json-formatter-and-validator-online",
   "/merge-pdf-files-free-online-without-watermark",
   "/privacy-policy",
   "/tools",
   "/word-counter-for-students-free"
 ] as const;
-

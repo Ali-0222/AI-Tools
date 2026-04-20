@@ -23,8 +23,21 @@ export default function ContactPage() {
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">Contact</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Contact us</h1>
           <p className="mt-3 max-w-2xl text-base text-[var(--muted)]">
-            Use the form below for general questions or suggestions. For a production deployment, point this form at your preferred email or serverless handler.
+            Use the form below to open a prefilled email draft for feedback, corrections, bug
+            reports, partnership questions, or policy-related messages.
           </p>
+          <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-7 text-[var(--muted)]">
+            <p>
+              Direct contact email:{" "}
+              <a href={`mailto:${siteConfig.email}`} className="font-semibold text-[var(--foreground)]">
+                {siteConfig.email}
+              </a>
+            </p>
+            <p className="mt-3">
+              Messages about factual corrections, broken tools, or unclear policy pages help improve
+              the site and are especially useful before requesting a review.
+            </p>
+          </div>
           <ContactForm />
         </section>
         <AdSidebar />

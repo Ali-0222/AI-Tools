@@ -31,8 +31,14 @@ export default function BlogPage() {
           <p className="text-xs uppercase tracking-[0.25em] text-[var(--accent)]">Blog</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Helpful guides for common online tasks</h1>
           <p className="mt-3 max-w-2xl text-base text-[var(--muted)]">
-            These posts explain common workflows around images, text, JSON, PDFs, privacy, and day-to-day browser-based tools.
+            These posts explain common workflows around images, text, JSON, PDFs, privacy, and
+            day-to-day browser-based tools.
           </p>
+          <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-7 text-[var(--muted)]">
+            Articles are meant to support real tool usage with checklists, mistakes to avoid, and
+            practical workflow notes. The goal is to publish fewer empty templates and more pages
+            that help a visitor finish a task confidently.
+          </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {blogPosts.map((post) => (
               <Link

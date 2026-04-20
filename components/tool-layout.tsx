@@ -25,6 +25,33 @@ export function ToolLayout({ title, description, children, tips }: ToolLayoutPro
         </div>
       </section>
 
+      <section className="px-4 pt-8">
+        <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
+          {[
+            [
+              "Focused workflow",
+              "This page is designed around one clear task so users can complete it without hunting through unrelated screens."
+            ],
+            [
+              "Review the output",
+              "Generated files, text, calculations, or conversions should be checked before important use."
+            ],
+            [
+              "More context below",
+              "Keep scrolling for use cases, limitations, related tools, and supporting guidance for this workflow."
+            ]
+          ].map(([heading, text]) => (
+            <article
+              key={heading}
+              className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5"
+            >
+              <h2 className="text-lg font-bold text-[var(--foreground)]">{heading}</h2>
+              <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="px-4 pt-8 md:pt-10">
         <div className="mx-auto max-w-4xl rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-6 md:p-8">
           <h2 className="text-2xl font-bold text-center">How to use this tool</h2>

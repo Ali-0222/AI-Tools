@@ -5,10 +5,19 @@ import { ToolButton } from "@/components/tool-shared";
 import { siteConfig } from "@/lib/site-config";
 
 export function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const subject = encodeURIComponent(`Website feedback from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
   }
 
@@ -19,6 +28,8 @@ export function ContactForm() {
         <input
           required
           type="text"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
           className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
         />
       </label>
@@ -27,6 +38,8 @@ export function ContactForm() {
         <input
           required
           type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
         />
       </label>
@@ -35,11 +48,13 @@ export function ContactForm() {
         <textarea
           required
           rows={7}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
           className="w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3"
         />
       </label>
       <div className="flex flex-wrap gap-3">
-        <ToolButton type="submit">Send message</ToolButton>
+        <ToolButton type="submit">Open email draft</ToolButton>
         <a
           href={`mailto:${siteConfig.email}`}
           className="rounded-full border border-[var(--border)] px-4 py-2 text-sm font-semibold"
@@ -49,7 +64,8 @@ export function ContactForm() {
       </div>
       {submitted ? (
         <p className="text-sm text-[var(--accent-strong)]">
-          Demo form submitted. Connect this to your preferred delivery method before launch.
+          Your email app should open with a prefilled draft. If it does not, send your message
+          directly to {siteConfig.email}.
         </p>
       ) : null}
     </form>

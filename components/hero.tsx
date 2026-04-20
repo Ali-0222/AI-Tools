@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
-import { siteTools } from "@/lib/site-data";
+import { blogPosts, siteTools } from "@/lib/site-data";
 
 export function Hero() {
   const loginRequiredCount = siteTools.filter((tool) => tool.authRequired).length;
@@ -23,7 +23,8 @@ export function Hero() {
             Free Online Tools for Images, Text, PDF and Developers
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[var(--muted)]">
-            Compress images without losing quality online free, count words for essays, format JSON, merge PDF files, and run everyday browser-based tools without signup.
+            Compress images, count words, format JSON, merge PDFs, and handle everyday browser
+            tasks with practical guidance, privacy notes, and clear next steps on every page.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
@@ -34,19 +35,19 @@ export function Hero() {
               Explore tools
             </Link>
             <Link
-              href="/about"
+              href="/editorial-guidelines"
               className="rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-semibold"
             >
-              Learn more
+              Review standards
             </Link>
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
             [String(siteTools.length), "Dedicated tool pages"],
-            ["100%", "Client-side processing"],
+            [String(blogPosts.length), "Supporting guides"],
             accessStat,
-            ["Fast", "Mobile-first layout"]
+            ["Browser-first", "Privacy-aware workflows"]
           ].map(([value, label]) => (
             <div key={label} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
               <p className="text-3xl font-bold">{value}</p>

@@ -21,9 +21,13 @@ export type ToolSeoData = {
   secondaryKeywords: string[];
   intro: string[];
   detailedGuide: ToolSeoSection[];
+  bestFor: string[];
+  beforeYouStart: string[];
   useCases: string[];
   comparison: ToolComparisonPoint[];
   tips: string[];
+  limitations: string[];
+  privacyNote: string;
   faqs: ToolFaq[];
 };
 
@@ -413,6 +417,16 @@ function buildCategoryFallback(tool: ToolDefinition): ToolSeoData {
         ]
       }
     ],
+    bestFor: [
+      `People who need a quick ${tool.category.toLowerCase()} task completed in the browser.`,
+      "Students, office users, creators, and developers handling one practical job at a time.",
+      "Visitors who want a focused page with simple actions and supporting instructions."
+    ],
+    beforeYouStart: [
+      "Check that your source text, file, or values are already reasonably clean before running the tool.",
+      "Know the result you need so you can choose the right settings instead of making random changes.",
+      "Review the final output once before copying, downloading, or sharing it."
+    ],
     useCases: [
       `Use ${tool.name} during everyday ${tool.category.toLowerCase()} tasks without installing extra software.`,
       "Complete quick one-off jobs on desktop or mobile when speed matters.",
@@ -437,6 +451,13 @@ function buildCategoryFallback(tool: ToolDefinition): ToolSeoData {
       "Review the result once before downloading, copying, or sharing it.",
       "Open related tools when your workflow has more than one step."
     ],
+    limitations: [
+      "A fast browser tool is helpful for short tasks, but it does not replace specialist desktop software in complex workflows.",
+      "The final quality still depends heavily on the source file, source text, or input values you provide.",
+      "For high-stakes work, use this page as a convenience step and verify the result independently."
+    ],
+    privacyNote:
+      "This page is designed around browser-first processing where supported. If you intentionally use account-based or saved features elsewhere on the site, additional storage or authentication steps may apply.",
     faqs: [
       {
         question: `Is ${tool.name} free to use?`,
@@ -469,9 +490,13 @@ export function getToolSeoData(tool: ToolDefinition): ToolSeoData {
     secondaryKeywords: override.secondaryKeywords ?? fallback.secondaryKeywords,
     intro: override.intro ?? fallback.intro,
     detailedGuide: override.detailedGuide ?? fallback.detailedGuide,
+    bestFor: override.bestFor ?? fallback.bestFor,
+    beforeYouStart: override.beforeYouStart ?? fallback.beforeYouStart,
     useCases: override.useCases ?? fallback.useCases,
     comparison: override.comparison ?? fallback.comparison,
     tips: override.tips ?? fallback.tips,
+    limitations: override.limitations ?? fallback.limitations,
+    privacyNote: override.privacyNote ?? fallback.privacyNote,
     faqs: [...fallback.faqs, ...(override.faqs ?? [])]
   };
 }

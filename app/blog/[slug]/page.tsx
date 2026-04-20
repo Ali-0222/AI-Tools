@@ -4,7 +4,13 @@ import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { blogPosts, siteTools } from "@/lib/site-data";
 import { SchemaScript } from "@/components/schema-script";
-import { buildBlogFaqs, buildBlogSections, estimateReadingTime } from "@/lib/blog-content";
+import {
+  buildBlogChecklist,
+  buildBlogFaqs,
+  buildBlogKeyTakeaways,
+  buildBlogSections,
+  estimateReadingTime
+} from "@/lib/blog-content";
 import { getSiteDataLastModified } from "@/lib/sitemap";
 import {
   buildBlogPostMetadata,
@@ -14,6 +20,14 @@ import {
 } from "@/lib/seo";
 
 type Params = Promise<{ slug: string }>;
+
+function formatDateLabel(value?: string) {
+  if (!value) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(value));
+}
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
@@ -29,6 +43,8 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
   }
 
   const sections = buildBlogSections(post);
+  const takeaways = buildBlogKeyTakeaways(post);
+  const checklist = buildBlogChecklist(post);
   const faqs = buildBlogFaqs(post);
   const fallbackDate = await getSiteDataLastModified();
   const datePublished = post.publishedAt ?? post.updatedAt ?? fallbackDate;
@@ -70,9 +86,50 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
               {post.category}
             </span>
             <span className="rounded-full bg-[var(--surface-strong)] px-3 py-1">
-              {estimateReadingTime(sections.length)}
+              {estimateReadingTime(sections.length, checklist.length)}
             </span>
+            {datePublished ? (
+              <span className="rounded-full bg-[var(--surface-strong)] px-3 py-1">
+                Published {formatDateLabel(datePublished)}
+              </span>
+            ) : null}
+            {dateModified && dateModified !== datePublished ? (
+              <span className="rounded-full bg-[var(--surface-strong)] px-3 py-1">
+                Updated {formatDateLabel(dateModified)}
+              </span>
+            ) : null}
           </div>
+
+          <section className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+              Editorial note
+            </p>
+            <p className="mt-3 text-[var(--muted)]">
+              Reviewed by the {post.category.toLowerCase()} content team at Toolbee Pro. These
+              articles are written to support the live tools with practical context, not to pad the
+              site with empty category pages.
+            </p>
+          </section>
+
+          <section className="mt-8">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+              Key takeaways
+            </h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {takeaways.map((item, index) => (
+                <article
+                  key={item}
+                  className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                    Point 0{index + 1}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{item}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <div className="mt-8 space-y-8">
             {sections.map((section) => (
               <section key={section.heading}>
@@ -87,6 +144,22 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
               </section>
             ))}
           </div>
+
+          <section className="mt-10">
+            <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+              Quick checklist
+            </h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {checklist.map((item) => (
+                <article
+                  key={item}
+                  className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4"
+                >
+                  <p className="text-sm leading-7 text-[var(--muted)]">{item}</p>
+                </article>
+              ))}
+            </div>
+          </section>
 
           <section className="mt-10">
             <h2 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">FAQs</h2>

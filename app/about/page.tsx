@@ -19,16 +19,32 @@ export default function AboutPage() {
       <SchemaScript schema={buildWebPageSchema({ title, description, path: "/about" })} />
       <StaticPage
         title={`About ${siteConfig.name}`}
-        description="This site was built to offer simple online utilities that are useful, privacy-aware, and easy to access on any device."
+        description="This site was built to offer practical online utilities, helpful supporting content, and a cleaner user experience than thin one-click tool directories."
       >
         <p>
-          {siteConfig.name} focuses on practical utilities for images, text, JSON, calculations, and PDFs. The goal is simple: help users finish common tasks quickly without signups or server-side storage.
+          {siteConfig.name} focuses on practical utilities for images, text, JSON, calculations,
+          and PDFs. The goal is to help people complete common tasks quickly while still
+          understanding what the tool does, when to use it, and what to review before relying on
+          the result.
         </p>
         <p>
-          Every tool is designed to be lightweight, mobile-friendly, and understandable for everyday users. Where possible, processing happens fully inside the browser to reduce privacy concerns and keep the experience fast.
+          The site is intentionally structured around dedicated tool pages, supporting guides,
+          visible contact information, and accessible policy pages. That approach helps visitors
+          understand who runs the site and why each page exists, instead of landing on thin content
+          created only to host ads.
         </p>
         <p>
-          The site also includes supporting content pages and blog posts so visitors can understand how the tools work and when to use them.
+          Every tool is designed to be lightweight, mobile-friendly, and understandable for everyday
+          users. Where possible, processing happens inside the browser to reduce unnecessary file
+          transfers and keep the workflow fast.
+        </p>
+        <p>
+          The site also publishes supporting articles, workflow notes, and internal links so users
+          can move from a problem to a solution instead of bouncing between disconnected pages.
+        </p>
+        <p>
+          Feedback, corrections, and tool suggestions are welcome through the contact page or by
+          emailing {siteConfig.email}.
         </p>
       </StaticPage>
     </>

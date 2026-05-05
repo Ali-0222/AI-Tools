@@ -49,8 +49,7 @@ export function Header() {
                 <button
                   type="button"
                   onClick={() => setDesktopOpen((current) => !current)}
-                  className="inline-flex appearance-none items-center gap-2 bg-transparent p-0 text-[var(--foreground)] transition hover:text-[var(--foreground)]"
-                  style={{ fontWeight: 700 }}
+                  className="inline-flex appearance-none items-center gap-2 bg-transparent p-0 font-bold text-[var(--foreground)] transition hover:text-[var(--foreground)]"
                   aria-expanded={desktopOpen}
                   aria-haspopup="menu"
                 >
@@ -139,7 +138,6 @@ export function Header() {
                   <Link
                     href="/auth/register"
                     className="rounded-xl bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--surface)] hover:text-[var(--surface)]"
-                    style={{ color: "var(--surface)" }}
                   >
                     Sign up
                   </Link>

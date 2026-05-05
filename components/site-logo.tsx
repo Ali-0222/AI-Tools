@@ -33,7 +33,7 @@ export function SiteLogo({
         </svg>
       </span>
       {compact ? null : (
-        <span className="flex flex-col leading-none" style={{marginTop: "5px"}}>
+        <span className="mt-[5px] flex flex-col leading-none">
           <span className="text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">
             Toolbee
           </span>

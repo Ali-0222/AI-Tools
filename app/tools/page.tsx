@@ -6,7 +6,7 @@ import { ToolCard } from "@/components/tool-card";
 import { siteTools } from "@/lib/site-data";
 import { buildCollectionPageSchema, buildMetadata } from "@/lib/seo";
 
-const title = "All Free Online Tools";
+const title = "All Free Online Tools for Images Text PDF and JSON";
 const description =
   "Browse all free online tools for image editing, text cleanup, JSON formatting, calculators, and PDF merging.";
 

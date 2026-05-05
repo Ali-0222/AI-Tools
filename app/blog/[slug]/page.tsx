@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { blogPosts, siteTools } from "@/lib/site-data";
@@ -103,7 +104,15 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
           </div>
 
           <figure className="mt-8 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface-strong)]">
-            <img src={visual.src} alt={visual.alt} className="h-64 w-full object-cover md:h-80" />
+            <Image
+              src={visual.src}
+              alt={visual.alt}
+              width={1200}
+              height={640}
+              sizes="(min-width: 1024px) 760px, calc(100vw - 48px)"
+              className="h-64 w-full object-cover md:h-80"
+              priority
+            />
             <figcaption className="flex flex-col gap-1 px-5 py-4 text-xs leading-5 text-[var(--muted)] md:flex-row md:items-center md:justify-between">
               <span>{visual.caption}</span>
               <a

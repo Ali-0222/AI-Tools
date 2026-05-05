@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import Image from "next/image";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { SchemaScript } from "@/components/schema-script";
 import { blogPosts } from "@/lib/site-data";
 import { getBlogVisual } from "@/lib/blog-content";
 import { buildCollectionPageSchema, buildMetadata } from "@/lib/seo";
 
-const title = "Blog";
+const title = "Online Tools Blog and Workflow Guides";
 const description =
   "Read blog articles about image optimization, browser-based tools, JSON formatting, and online productivity topics.";
 
@@ -50,9 +51,12 @@ export default function BlogPage() {
                   href={`/blog/${post.slug}`}
                   className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition hover:border-[var(--accent)] hover:shadow-[0_12px_24px_rgba(15,23,42,0.08)]"
                 >
-                  <img
+                  <Image
                     src={visual.src}
                     alt={visual.alt}
+                    width={700}
+                    height={360}
+                    sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 100vw"
                     className="h-44 w-full object-cover"
                     loading="lazy"
                   />

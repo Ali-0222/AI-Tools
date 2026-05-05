@@ -30,7 +30,6 @@ export function Hero() {
             <Link
               href="/tools"
               className="rounded-xl bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--surface)] transition hover:bg-[var(--accent-strong)] hover:text-[var(--surface)]"
-              style={{ color: "var(--surface)" }}
             >
               Explore tools
             </Link>

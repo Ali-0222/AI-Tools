@@ -4,7 +4,7 @@ import { StaticPage } from "@/components/static-page";
 import { buildMetadata, buildWebPageSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-const title = "About Us";
+const title = "About Toolbee Pro Online Tools";
 const description = `Learn the purpose of ${siteConfig.name} and why the site focuses on simple, free, browser-based utilities.`;
 
 export const metadata: Metadata = buildMetadata({

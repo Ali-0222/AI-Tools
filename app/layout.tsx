@@ -49,6 +49,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/"
   },
+  verification: {
+    ...(siteConfig.googleSiteVerification
+      ? { google: siteConfig.googleSiteVerification }
+      : {}),
+    ...(siteConfig.bingSiteVerification
+      ? { other: { "msvalidate.01": siteConfig.bingSiteVerification } }
+      : {})
+  },
   other: {
     "google-adsense-account": siteConfig.adsenseAccount
   }
@@ -70,14 +78,14 @@ export default function RootLayout({
         />
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-RJTFPY0G35"
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.googleAnalyticsId}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-RJTFPY0G35');`}
+gtag('config', '${siteConfig.googleAnalyticsId}');`}
         </Script>
       </head>
       <body>

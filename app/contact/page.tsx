@@ -5,7 +5,7 @@ import { SchemaScript } from "@/components/schema-script";
 import { buildMetadata, buildWebPageSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-const title = "Contact Us";
+const title = "Contact Toolbee Pro Support and Feedback";
 const description = `Contact ${siteConfig.name} with feedback, suggestions, or general questions through a simple contact form.`;
 
 export const metadata: Metadata = buildMetadata({

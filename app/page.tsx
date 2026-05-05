@@ -80,7 +80,7 @@ export default function HomePage() {
             />
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {[
-                "Tool pages include instructions, supporting copy, and related workflows instead of empty templates.",
+                "Tool pages include instructions, supporting copy, and related workflows for real tasks.",
                 "Static pages explain ownership, privacy, editorial standards, and how to contact the publisher.",
                 `Internal linking helps users move across ${getToolCountLabel().toLowerCase()} without dead ends.`
               ].map((item) => (
@@ -92,9 +92,9 @@ export default function HomePage() {
           </section>
           <section className="card p-6 md:p-8">
             <SectionHeading
-              eyebrow="Review Readiness"
-              title="Signals that make the site easier to trust"
-              text="Ad-supported sites need more than traffic and tools. They also need clear ownership, useful content, and a clean user experience."
+              eyebrow="Trust and Privacy"
+              title="Clear pages for practical everyday workflows"
+              text="The site explains what each tool does, how to use it, what to check before relying on the result, and how to contact the publisher."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {[
@@ -104,15 +104,15 @@ export default function HomePage() {
                 ],
                 [
                   "Practical content around every tool",
-                  "Visitors can see what the tool does, when to use it, what to watch out for, and which page should come next."
+                  "Visitors can see what the tool does, when to use it, what to watch out for, and which related page can help next."
                 ],
                 [
-                  "Navigation that supports task completion",
-                  "Core pages link naturally to related tools, blog guides, and policy pages instead of pushing users into empty loops."
+                  "Navigation for task completion",
+                  "Core pages link naturally to related tools, focused landing pages, and supporting guides."
                 ],
                 [
                   "Honest limitations",
-                  "The site explains that outputs should be reviewed and that browser tools are best for quick workflows rather than high-stakes professional review."
+                  "The site explains that browser tools are best for quick workflows and that important output should be checked before use."
                 ]
               ].map(([title, text]) => (
                 <article
@@ -207,7 +207,7 @@ export default function HomePage() {
                 The site aims to publish pages that have a clear purpose, original utility, and
                 enough supporting information to help visitors finish a task confidently. Policy,
                 privacy, and contact pages are kept accessible from every screen so the publisher is
-                easy to identify during review.
+                easy to identify and reach.
               </p>
             </div>
           </section>

@@ -45,8 +45,8 @@ export function Footer() {
             </a>
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-            If advertising is added after approval, ad placements should stay clearly separate from
-            navigation, download buttons, and tool actions.
+            Tool pages are maintained with clear instructions, privacy notes, and contact access for
+            corrections or support.
           </p>
         </div>
       </div>

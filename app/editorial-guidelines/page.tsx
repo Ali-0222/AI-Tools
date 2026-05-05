@@ -26,7 +26,7 @@ export default function EditorialGuidelinesPage() {
       />
       <StaticPage
         title="Editorial Guidelines"
-        description="These guidelines explain how the site aims to publish useful pages, avoid thin content, and keep the user experience clear."
+        description="These guidelines explain how the site plans, maintains, and corrects useful tool pages and supporting guides."
       >
         <p>
           {siteConfig.name} is designed as a practical utility site, which means pages should help
@@ -51,9 +51,9 @@ export default function EditorialGuidelinesPage() {
           visitor trust.
         </p>
         <p>
-          If advertising is added after approval, ad placements should remain clearly labeled,
-          separate from navigation or download controls, and secondary to the page's main
-          publisher content.
+          Tool controls, download actions, and navigation should remain easy to identify on mobile
+          and desktop screens. Supporting content should help the task instead of distracting from
+          it.
         </p>
       </StaticPage>
     </>

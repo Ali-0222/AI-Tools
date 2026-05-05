@@ -38,7 +38,7 @@ export default function ToolsPage() {
           <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-7 text-[var(--muted)]">
             This directory is organized to help visitors find the right workflow quickly. Tool pages
             are expected to explain the task, show the main action clearly, and link to the next
-            relevant page instead of acting like empty placeholders.
+            relevant page when another step can improve the result.
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {siteTools.map((tool) => (

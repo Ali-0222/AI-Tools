@@ -378,6 +378,219 @@ const toolOverrides: Partial<Record<ToolKey, ToolSeoOverride>> = {
   }
 };
 
+const toolProfiles: Record<
+  ToolKey,
+  {
+    audience: string;
+    input: string;
+    output: string;
+    workflow: string;
+    caution: string;
+    pairedStep: string;
+  }
+> = {
+  "background-remover": {
+    audience: "store owners, creators, and designers preparing product or profile images",
+    input: "a photo with a clear subject edge",
+    output: "a transparent PNG that can be reused in listings, thumbnails, or designs",
+    workflow: "remove the background, inspect the edge, then download only after the subject still looks natural",
+    caution: "busy backgrounds, shadows, and hair detail can need manual review after automatic removal",
+    pairedStep: "compress the finished PNG if the final file needs to be smaller"
+  },
+  "image-compressor": {
+    audience: "bloggers, students, and site owners trying to meet upload limits or improve loading speed",
+    input: "a photo, screenshot, or graphic that is larger than needed",
+    output: "a lighter image file with acceptable visual quality",
+    workflow: "resize large source images first, then compress gradually while comparing the preview",
+    caution: "very small targets can make text, faces, and detailed graphics look damaged",
+    pairedStep: "use the image resizer first when the original dimensions are much larger than the display area"
+  },
+  "image-resizer": {
+    audience: "people preparing photos for forms, websites, social profiles, and document uploads",
+    input: "an image with dimensions that do not match the destination",
+    output: "a resized image with controlled width, height, and aspect ratio",
+    workflow: "choose the target size, keep aspect ratio when accuracy matters, then download the new image",
+    caution: "stretching an image into the wrong ratio can make people, logos, or products look distorted",
+    pairedStep: "compress the resized image afterward if a portal also has a file-size limit"
+  },
+  "jpg-to-png": {
+    audience: "users who need a PNG copy for design tools, sharing, or compatibility",
+    input: "a JPG or JPEG image",
+    output: "a PNG file generated from the browser",
+    workflow: "convert only when PNG is the better destination format, then preview the output before download",
+    caution: "converting a JPG to PNG does not restore detail that was already lost in the original file",
+    pairedStep: "compress the PNG if the converted file becomes larger than expected"
+  },
+  "webp-to-png": {
+    audience: "people downloading WebP images that need to work in apps or systems expecting PNG",
+    input: "a WebP image from a website, export, or design source",
+    output: "a PNG version that is easier to reuse in common workflows",
+    workflow: "upload the WebP, convert it, and confirm transparency or sharp edges still look correct",
+    caution: "PNG output can be larger than WebP, especially for detailed photos",
+    pairedStep: "use compression after conversion when the PNG needs to be shared or uploaded"
+  },
+  "image-to-text-ocr": {
+    audience: "students, office users, and researchers turning screenshots or scans into editable text",
+    input: "a readable image containing typed or printed text",
+    output: "editable text that can be copied and corrected",
+    workflow: "upload a clear image, run OCR, then proofread names, numbers, and punctuation carefully",
+    caution: "blur, glare, handwriting, and tilted pages can reduce OCR accuracy",
+    pairedStep: "clean the extracted text with whitespace or case tools after proofreading"
+  },
+  "ai-paraphrasing-tool": {
+    audience: "writers, students, and marketers improving rough drafts without starting over",
+    input: "a paragraph or short draft that needs a clearer tone",
+    output: "a rewritten draft that still needs human review",
+    workflow: "choose a tone, generate a rewrite, compare it with the original, and keep only accurate changes",
+    caution: "paraphrasing can change meaning, remove nuance, or make unsupported claims if left unchecked",
+    pairedStep: "use the word counter afterward when the final draft must fit a length limit"
+  },
+  "word-counter": {
+    audience: "students, writers, editors, and social media managers working with length limits",
+    input: "plain text from an essay, caption, article, form, or draft",
+    output: "live word, character, and sentence counts",
+    workflow: "paste the full text first, check the totals, then edit while watching the counts update",
+    caution: "word processors and platforms may count some punctuation or symbols differently",
+    pairedStep: "use case conversion or whitespace cleanup before the final copy pass"
+  },
+  "case-converter": {
+    audience: "content teams, students, and admins standardizing headlines, labels, and copied text",
+    input: "text with inconsistent uppercase, lowercase, or capitalization",
+    output: "cleaner text in the selected case style",
+    workflow: "clean spacing first if needed, convert the case, then review names and acronyms manually",
+    caution: "automatic case changes can alter brand names, abbreviations, and proper nouns",
+    pairedStep: "run the whitespace cleaner before conversion when the source came from multiple places"
+  },
+  "remove-duplicates": {
+    audience: "people cleaning lists, keywords, email drafts, IDs, or copied rows",
+    input: "line-based text that may contain repeated entries",
+    output: "a cleaner list that keeps the first occurrence of each unique line",
+    workflow: "paste the list, remove duplicates, then compare the output when order or context matters",
+    caution: "near-duplicates with extra spaces or small spelling differences may still need manual review",
+    pairedStep: "use whitespace cleanup before duplicate removal for messy copied data"
+  },
+  "text-reverser": {
+    audience: "users testing strings, creating quick text effects, or checking mirrored sequences",
+    input: "a word, sentence, paragraph, or short string",
+    output: "the same text reversed according to the selected workflow",
+    workflow: "paste the text, reverse it, and copy the result only after confirming spacing still makes sense",
+    caution: "reversed text is mostly for utility checks and simple effects, not normal readable publishing",
+    pairedStep: "use the cleaner afterward if the reversed output contains unwanted line breaks"
+  },
+  "text-sorter": {
+    audience: "analysts, SEOs, support teams, and students organizing copied line lists",
+    input: "lines of text such as tags, names, keywords, IDs, or notes",
+    output: "a sorted list, optionally with duplicates removed",
+    workflow: "decide whether alphabetical order helps, then sort and review the cleaned list",
+    caution: "do not sort lists where original order carries priority, chronology, or ranking meaning",
+    pairedStep: "remove duplicates or normalize whitespace before sorting when the source is inconsistent"
+  },
+  "whitespace-cleaner": {
+    audience: "writers and office users cleaning text copied from PDFs, chats, spreadsheets, or web pages",
+    input: "text with extra spaces, uneven line breaks, or pasted formatting noise",
+    output: "tidier text that is easier to read and reuse",
+    workflow: "clean spacing before deeper editing so the copy is easier to review",
+    caution: "some documents need intentional line breaks, so review paragraphs before replacing the original",
+    pairedStep: "use duplicate removal or case conversion after spacing has been normalized"
+  },
+  "slug-generator": {
+    audience: "bloggers, developers, and site owners creating readable URL paths",
+    input: "a title, phrase, product name, or draft heading",
+    output: "a lowercase slug with cleaner separators",
+    workflow: "generate the slug, remove unnecessary words if needed, and keep the final URL stable",
+    caution: "changing slugs after publishing can break links unless redirects are handled correctly",
+    pairedStep: "use the word counter when drafting concise page titles before slug creation"
+  },
+  "url-encoder-decoder": {
+    audience: "developers, QA testers, and support teams debugging links and API parameters",
+    input: "URL text, query values, redirects, or encoded strings",
+    output: "encoded or decoded text for safer request handling",
+    workflow: "encode only the unsafe value, not the full URL structure, unless that is the specific goal",
+    caution: "double encoding can break links just as easily as missing encoding",
+    pairedStep: "validate related JSON payloads separately before placing them into a URL"
+  },
+  "base64-encoder-decoder": {
+    audience: "developers and technical users inspecting small encoded values",
+    input: "plain text or Base64 text",
+    output: "encoded Base64 or decoded readable text",
+    workflow: "encode or decode the value, then verify the result before using it in a request or config",
+    caution: "Base64 is not encryption and should not be described as security by itself",
+    pairedStep: "format JSON after decoding when the result contains structured data"
+  },
+  "password-generator": {
+    audience: "everyday users creating unique passwords for accounts",
+    input: "length and character preferences",
+    output: "a random password ready to copy into a secure place",
+    workflow: "choose a strong length, generate a password, and store it in a trusted password manager",
+    caution: "do not reuse generated passwords across multiple accounts",
+    pairedStep: "generate a UUID instead when the workflow needs an identifier rather than a login secret"
+  },
+  "uuid-generator": {
+    audience: "developers, testers, and documenters needing unique reference values",
+    input: "a requested number of UUID values",
+    output: "UUID v4 strings that can be copied individually or together",
+    workflow: "generate the required values and keep their format unchanged across systems",
+    caution: "UUIDs are identifiers, not proof of identity or security tokens by themselves",
+    pairedStep: "format JSON afterward when placing UUIDs into fixtures or API examples"
+  },
+  "age-calculator": {
+    audience: "users checking date-based age for forms, planning, or quick reference",
+    input: "a birth date and the current date",
+    output: "age in years, months, and days",
+    workflow: "enter the date carefully and check the result before copying it into a form",
+    caution: "timezone, calendar rules, and incorrect date entry can affect edge cases",
+    pairedStep: "use the calculator as a convenience check, not as official identity verification"
+  },
+  "bmi-calculator": {
+    audience: "people making a quick height-and-weight estimate",
+    input: "height and weight values in the expected units",
+    output: "a BMI score with a general category",
+    workflow: "enter units carefully, calculate the score, and treat the result as a broad reference",
+    caution: "BMI does not measure body composition, health history, age, or medical risk by itself",
+    pairedStep: "use professional guidance for health decisions that matter"
+  },
+  "json-formatter": {
+    audience: "developers, support teams, and analysts reading API payloads or config data",
+    input: "raw, minified, or messy JSON",
+    output: "formatted JSON or a clear validation error",
+    workflow: "paste the full payload, format it, fix syntax errors one at a time, and copy only valid output",
+    caution: "JavaScript object syntax is not always valid JSON, especially comments and trailing commas",
+    pairedStep: "use URL or Base64 tools when the JSON is part of an encoded request"
+  },
+  "qr-code-generator": {
+    audience: "creators, teachers, small businesses, and event organizers sharing quick links",
+    input: "a URL, short text, or contact detail",
+    output: "a downloadable QR code image",
+    workflow: "enter the destination, generate the code, test it on a phone, and then download",
+    caution: "long or broken URLs can create harder-to-scan QR codes",
+    pairedStep: "shorten or clean the destination text before generating a final code"
+  },
+  "pdf-merge": {
+    audience: "students, applicants, office teams, and freelancers combining document sets",
+    input: "two or more PDF files in the intended reading order",
+    output: "one merged PDF",
+    workflow: "arrange files first, merge them, then open the result to confirm page order and readability",
+    caution: "merging does not fix blurry scans, missing pages, or incorrect source documents",
+    pairedStep: "convert Word files to PDF before merging when the final packet needs consistent format"
+  },
+  "word-to-pdf": {
+    audience: "people preparing documents for sharing, printing, applications, or archiving",
+    input: "a DOCX file",
+    output: "a downloadable PDF document",
+    workflow: "review the source document, convert it, then inspect the PDF for spacing and page breaks",
+    caution: "complex layouts, unusual fonts, and tables may need manual review after conversion",
+    pairedStep: "merge the converted PDF with supporting files when a single packet is required"
+  },
+  "cv-builder": {
+    audience: "job seekers preparing a readable resume without starting from a blank document",
+    input: "profile, experience, education, skills, and project details",
+    output: "a structured CV that can be previewed and downloaded as PDF",
+    workflow: "choose a template, write role-specific content, preview every section, and export when it reads cleanly",
+    caution: "templates help structure, but weak or inaccurate content still needs careful editing",
+    pairedStep: "use the word counter and case converter to polish dense sections before export"
+  }
+};
+
 function buildCategoryFallback(tool: ToolDefinition): ToolSeoData {
   const categoryKeywordList = categoryKeywords[tool.category] ?? [
     "free online tools",
@@ -386,51 +599,52 @@ function buildCategoryFallback(tool: ToolDefinition): ToolSeoData {
   ];
   const primaryKeyword = categoryKeywordList[0];
   const secondaryKeywords = categoryKeywordList.slice(1);
+  const profile = toolProfiles[tool.slug];
 
   return {
     primaryKeyword,
     secondaryKeywords,
     intro: [
-      `${tool.name} helps users ${tool.description.toLowerCase()} This page is designed for people who want a fast browser workflow instead of opening heavy software or signing up for a paid service.`,
-      `${siteConfig.name} keeps this ${tool.category.toLowerCase()} page focused on one clear task, with practical explanations and related tools that help users move through the workflow without confusion.`
+      `${tool.name} helps ${profile.audience}. Start with ${profile.input}, use the tool for a focused browser workflow, and finish with ${profile.output}.`,
+      `${siteConfig.name} keeps this ${tool.category.toLowerCase()} page focused on one practical task: ${profile.workflow}.`
     ],
     detailedGuide: [
       {
         title: `What is ${tool.name.toLowerCase()} and how does it work`,
         paragraphs: [
-          `${tool.name} is a focused online utility built for quick execution. You open the page, add your input, run the action, and immediately use the output without moving through unnecessary screens or setup steps.`,
-          "This matters because clear instructions and a simple workflow help users finish the job faster with fewer mistakes."
+          `${tool.name} is a focused online utility for turning ${profile.input} into ${profile.output}. It is meant for short, practical tasks where opening a large desktop app would slow the work down.`,
+          `The basic workflow is simple: ${profile.workflow}. Clear labels, reset controls, and copy or download actions keep the page useful on both mobile and desktop.`
         ]
       },
       {
         title: `Why people use ${tool.shortTitle.toLowerCase()} online`,
         paragraphs: [
-          `A browser-based ${tool.shortTitle.toLowerCase()} workflow is useful when speed matters. Students, developers, marketers, office users, and freelancers often need a result in seconds rather than a full software workflow.`,
-          "This is especially helpful when someone needs a quick result on a shared computer, a phone, or a machine without extra software installed."
+          `A browser-based ${tool.shortTitle.toLowerCase()} workflow is useful for ${profile.audience}. It reduces setup time and keeps the page centered on the result instead of a complex software interface.`,
+          `This page is most helpful when the source is already close to the result you need. ${profile.pairedStep}.`
         ]
       },
       {
         title: `${tool.name} tips for better results`,
         paragraphs: [
-          "Start with clean input and review the final output before sharing or publishing it. Most quick online workflows become more reliable when the source file or text is already well structured.",
-          `If you repeat similar tasks often, combine ${tool.name} with related tools from the same site to create a faster workflow and stronger internal navigation paths.`
+          `Start with clean input: ${profile.input}. Review the output before sharing, uploading, or publishing it so the final result still matches the destination.`,
+          `${profile.caution}. If the task has more than one step, use related tools from the same workflow instead of forcing one page to do everything.`
         ]
       }
     ],
     bestFor: [
-      `People who need a quick ${tool.category.toLowerCase()} task completed in the browser.`,
-      "Students, office users, creators, and developers handling one practical job at a time.",
-      "Visitors who want a focused page with simple actions and supporting instructions."
+      profile.audience,
+      `Users who want ${profile.output} without installing extra software.`,
+      "Visitors who need a focused page with simple actions and supporting instructions."
     ],
     beforeYouStart: [
-      "Check that your source text, file, or values are already reasonably clean before running the tool.",
-      "Know the result you need so you can choose the right settings instead of making random changes.",
+      `Prepare ${profile.input} before running the tool.`,
+      `Know whether the desired result is ${profile.output}.`,
       "Review the final output once before copying, downloading, or sharing it."
     ],
     useCases: [
-      `Use ${tool.name} during everyday ${tool.category.toLowerCase()} tasks without installing extra software.`,
-      "Complete quick one-off jobs on desktop or mobile when speed matters.",
-      "Handle practical school, work, or publishing tasks directly in the browser."
+      `Use ${tool.name} when ${profile.audience} need a quick result.`,
+      `Prepare ${profile.output} for school, work, publishing, or sharing.`,
+      `Pair it with another tool when the next step is: ${profile.pairedStep.toLowerCase()}.`
     ],
     comparison: [
       {
@@ -447,13 +661,13 @@ function buildCategoryFallback(tool: ToolDefinition): ToolSeoData {
       }
     ],
     tips: [
-      `Use ${tool.name} with clear source input for more predictable output.`,
+      `Use ${tool.name} with ${profile.input} for more predictable output.`,
       "Review the result once before downloading, copying, or sharing it.",
-      "Open related tools when your workflow has more than one step."
+      profile.pairedStep
     ],
     limitations: [
-      "A fast browser tool is helpful for short tasks, but it does not replace specialist desktop software in complex workflows.",
-      "The final quality still depends heavily on the source file, source text, or input values you provide.",
+      profile.caution,
+      `The final quality depends heavily on the source: ${profile.input}.`,
       "For high-stakes work, use this page as a convenience step and verify the result independently."
     ],
     privacyNote:

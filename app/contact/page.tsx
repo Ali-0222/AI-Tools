@@ -35,7 +35,7 @@ export default function ContactPage() {
             </p>
             <p className="mt-3">
               Messages about factual corrections, broken tools, or unclear policy pages help improve
-              the site and are especially useful before requesting a review.
+              the site for everyone who relies on these tools.
             </p>
           </div>
           <ContactForm />

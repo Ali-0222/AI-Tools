@@ -11,8 +11,8 @@ export function Hero() {
 
   return (
     <section className="card overflow-hidden p-6 md:p-10">
-      <div className="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
-        <div>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-center">
+        <div className="min-w-0">
           <div className="mb-5">
             <SiteLogo href="/" className="pointer-events-none" />
           </div>
@@ -38,7 +38,7 @@ export function Hero() {
               href="/editorial-guidelines"
               className="rounded-xl border border-[var(--border)] px-5 py-3 text-sm font-semibold"
             >
-              Review standards
+              Publishing standards
             </Link>
           </div>
         </div>
@@ -47,10 +47,15 @@ export function Hero() {
             [String(siteTools.length), "Dedicated tool pages"],
             [String(blogPosts.length), "Supporting guides"],
             accessStat,
-            ["Browser-first", "Privacy-aware workflows"]
+            ["Browser first", "Privacy-aware workflows"]
           ].map(([value, label]) => (
-            <div key={label} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
-              <p className="text-3xl font-bold">{value}</p>
+            <div
+              key={label}
+              className="flex min-h-[126px] flex-col justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-4 sm:p-5"
+            >
+              <p className="text-2xl font-bold leading-tight text-[var(--foreground)] xl:text-3xl">
+                {value}
+              </p>
               <p className="mt-2 text-sm text-[var(--muted)]">{label}</p>
             </div>
           ))}

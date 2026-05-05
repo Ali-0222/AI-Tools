@@ -9,7 +9,8 @@ import {
   buildBlogFaqs,
   buildBlogKeyTakeaways,
   buildBlogSections,
-  estimateReadingTime
+  estimateReadingTime,
+  getBlogVisual
 } from "@/lib/blog-content";
 import { getSiteDataLastModified } from "@/lib/sitemap";
 import {
@@ -46,6 +47,7 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
   const takeaways = buildBlogKeyTakeaways(post);
   const checklist = buildBlogChecklist(post);
   const faqs = buildBlogFaqs(post);
+  const visual = getBlogVisual(post);
   const fallbackDate = await getSiteDataLastModified();
   const datePublished = post.publishedAt ?? post.updatedAt ?? fallbackDate;
   const dateModified = post.updatedAt ?? post.publishedAt ?? fallbackDate;
@@ -100,14 +102,28 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
             ) : null}
           </div>
 
+          <figure className="mt-8 overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface-strong)]">
+            <img src={visual.src} alt={visual.alt} className="h-64 w-full object-cover md:h-80" />
+            <figcaption className="flex flex-col gap-1 px-5 py-4 text-xs leading-5 text-[var(--muted)] md:flex-row md:items-center md:justify-between">
+              <span>{visual.caption}</span>
+              <a
+                href={visual.creditUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-[var(--accent)]"
+              >
+                Image: {visual.creditLabel}
+              </a>
+            </figcaption>
+          </figure>
+
           <section className="mt-8 rounded-3xl border border-[var(--border)] bg-[var(--surface-strong)] p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
               Editorial note
             </p>
             <p className="mt-3 text-[var(--muted)]">
-              Reviewed by the {post.category.toLowerCase()} content team at Toolbee Pro. These
-              articles are written to support the live tools with practical context, not to pad the
-              site with empty category pages.
+              Maintained by Toolbee Pro as supporting guidance for the live tools. Articles are
+              updated when workflows, limitations, or related pages need clearer explanation.
             </p>
           </section>
 

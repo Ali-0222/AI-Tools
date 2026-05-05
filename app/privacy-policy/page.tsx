@@ -33,9 +33,9 @@ export default function PrivacyPolicyPage() {
         </p>
         <p>
           This site may use cookies or similar technologies for analytics, site performance
-          measurement, and service improvement. If advertising is enabled after approval, Google or
-          other advertising partners may use cookies to serve, personalize, or measure ads
-          according to their own policies.
+          measurement, service improvement, and advertising features. Google or other advertising
+          partners may use cookies to serve, personalize, or measure ads according to their own
+          policies.
         </p>
         <p>
           Users should treat generated output as a convenience result, not as legal, medical,

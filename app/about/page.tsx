@@ -30,8 +30,7 @@ export default function AboutPage() {
         <p>
           The site is intentionally structured around dedicated tool pages, supporting guides,
           visible contact information, and accessible policy pages. That approach helps visitors
-          understand who runs the site and why each page exists, instead of landing on thin content
-          created only to host ads.
+          understand who runs the site, how pages are maintained, and why each tool exists.
         </p>
         <p>
           Every tool is designed to be lightweight, mobile-friendly, and understandable for everyday

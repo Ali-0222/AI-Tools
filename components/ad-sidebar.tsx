@@ -4,24 +4,23 @@ export function AdSidebar() {
   return (
     <aside className="space-y-6 lg:sticky lg:top-6 lg:h-fit" aria-label="Sidebar">
       <div className="card p-5">
-        <h2 className="text-lg font-bold">What to expect on this site</h2>
+        <h2 className="text-lg font-bold">What to expect</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
-          <li>Clear tool pages with practical instructions, not just a button and empty space.</li>
+          <li>Clear tool pages with practical instructions and visible next steps.</li>
           <li>Browser-first workflows for common image, text, PDF, and developer tasks.</li>
-          <li>Honest notes about privacy, limitations, and when to double-check results.</li>
+          <li>Plain notes about privacy, limitations, and when to double-check results.</li>
         </ul>
       </div>
 
       <div className="card p-5">
-        <h2 className="text-lg font-bold">Site standards</h2>
+        <h2 className="text-lg font-bold">Popular workflows</h2>
         <div className="mt-4 space-y-3 text-sm leading-6 text-[var(--muted)]">
           <p>
-            Pages are written to help users complete a task, understand the workflow, and find the
-            next relevant page without misleading navigation.
+            Compress or resize images before uploading them to forms, blogs, job portals, or email.
           </p>
           <p>
-            If ads are enabled after approval, they should remain separate from tool controls and
-            never block the core content on the page.
+            Clean text, format JSON, merge PDFs, and create QR codes without installing extra
+            desktop software.
           </p>
         </div>
       </div>

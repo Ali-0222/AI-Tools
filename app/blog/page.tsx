@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { AdSidebar } from "@/components/ad-sidebar";
 import { SchemaScript } from "@/components/schema-script";
 import { blogPosts } from "@/lib/site-data";
+import { getBlogVisual } from "@/lib/blog-content";
 import { buildCollectionPageSchema, buildMetadata } from "@/lib/seo";
 
 const title = "Blog";
@@ -36,21 +37,37 @@ export default function BlogPage() {
           </p>
           <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5 text-sm leading-7 text-[var(--muted)]">
             Articles are meant to support real tool usage with checklists, mistakes to avoid, and
-            practical workflow notes. The goal is to publish fewer empty templates and more pages
-            that help a visitor finish a task confidently.
+            practical workflow notes. Each guide is connected to a real tool page so visitors can
+            move from reading to doing without a dead end.
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {blogPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5"
-              >
-                <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent)]">{post.category}</p>
-                <h2 className="mt-3 text-xl font-semibold">{post.title}</h2>
-                <p className="mt-2 text-sm text-[var(--muted)]">{post.description}</p>
-              </Link>
-            ))}
+            {blogPosts.map((post) => {
+              const visual = getBlogVisual(post);
+
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition hover:border-[var(--accent)] hover:shadow-[0_12px_24px_rgba(15,23,42,0.08)]"
+                >
+                  <img
+                    src={visual.src}
+                    alt={visual.alt}
+                    className="h-44 w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-5">
+                    <p className="text-xs uppercase tracking-[0.2em] text-[var(--accent)]">
+                      {post.category}
+                    </p>
+                    <h2 className="mt-3 text-xl font-semibold">{post.title}</h2>
+                    <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                      {post.description}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
         <AdSidebar />

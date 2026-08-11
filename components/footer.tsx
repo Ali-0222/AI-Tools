@@ -9,8 +9,8 @@ export function Footer() {
         <div>
           <SiteLogo />
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-            Free browser-based tools with supporting guides, clear privacy notes, and focused pages
-            for common image, text, PDF, and developer tasks.
+            Free browser-based tools with practical guides, clear privacy notes, and pages for
+            common image, text, PDF, and developer tasks.
           </p>
         </div>
         <div>
@@ -32,6 +32,7 @@ export function Footer() {
             <Link href="/editorial-guidelines">Editorial Guidelines</Link>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/disclaimer">Disclaimer</Link>
+            <Link href="/terms-and-conditions">Terms and Conditions</Link>
           </div>
         </div>
         <div>
@@ -45,7 +46,7 @@ export function Footer() {
             </a>
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-            Tool pages are maintained with clear instructions, privacy notes, and contact access for
+            Tool pages are maintained with instructions, privacy notes, and contact access for
             corrections or support.
           </p>
         </div>

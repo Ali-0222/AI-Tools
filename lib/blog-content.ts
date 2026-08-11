@@ -109,7 +109,7 @@ const blogVisuals: Record<string, BlogVisual> = {
   "on-page-seo-checklist-for-tool-pages": {
     src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1400&q=80",
     alt: "Analytics and website checklist workspace for on-page SEO review",
-    caption: "A useful tool page needs a clear purpose, usable controls, and supporting guidance.",
+    caption: "A strong tool page pairs usable controls with notes that help people review the result.",
     creditLabel: "Unsplash",
     creditUrl: "https://unsplash.com/s/photos/analytics-dashboard"
   },
@@ -451,7 +451,7 @@ const blogBlueprints: Record<string, BlogBlueprint> = {
   },
   "on-page-seo-checklist-for-tool-pages": {
     quickSummary:
-      "A strong tool page needs more than a keyword and a widget. It needs a clear title, practical intro, usable interface, supporting guidance, and honest trust signals.",
+      "A strong tool page needs more than a keyword and a widget. It should show the task clearly, explain the result, and give visitors enough detail to decide whether the output is ready.",
     whyItMatters:
       "Tool pages often fail because they feel empty. Search engines and users both need to see what the page offers beyond the raw utility itself.",
     workflow: [
@@ -895,3 +895,4 @@ export function estimateReadingTime(sectionCount: number, checklistCount = 0) {
   const minutes = Math.max(4, Math.round(contentUnits / 200));
   return `${minutes} min read`;
 }
+

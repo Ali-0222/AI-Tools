@@ -114,7 +114,7 @@ export function buildToolMetadata(slug: string): Metadata {
   }
 
   const seoTitle = getToolHeading(tool);
-  const seoDescription = `${getToolDescription(tool)} No signup required. Fast results on ${siteConfig.name}.`;
+  const seoDescription = `${getToolDescription(tool)} Includes practical notes, limitations, and related tools on ${siteConfig.name}.`;
 
   return buildMetadata({
     title: seoTitle,
@@ -315,3 +315,4 @@ export function buildBlogPostingSchema({
     }
   };
 }
+

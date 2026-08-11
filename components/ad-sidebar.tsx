@@ -1,26 +1,26 @@
 import Link from "next/link";
 
 const expectations = [
-  "Clear tool pages with practical instructions and visible next steps.",
-  "Browser-first workflows for common image, text, PDF, and developer tasks.",
-  "Plain notes about privacy, limitations, and when to double-check results."
+  "Plain instructions beside tools people actually use for uploads, writing, documents, and debugging.",
+  "Quick browser workflows for image, text, PDF, calculator, and developer cleanup jobs.",
+  "Honest notes about privacy, limits, and the results that deserve a second look."
 ];
 
 const workflows = [
   {
     href: "/tools/image-compressor",
     title: "Compress images",
-    description: "Prepare photos for forms, blogs, job portals, or email."
+    description: "Shrink or resize photos before forms, job portals, blogs, and email attachments."
   },
   {
     href: "/tools/json-formatter",
     title: "Format JSON",
-    description: "Clean, validate, and read structured data more quickly."
+    description: "Paste messy JSON, format it, and catch syntax errors before using it elsewhere."
   },
   {
     href: "/tools/pdf-merge",
     title: "Merge PDFs",
-    description: "Combine documents in the browser without extra desktop software."
+    description: "Put documents in order and download one combined PDF for sharing or submission."
   }
 ];
 
@@ -28,6 +28,8 @@ const helpfulLinks = [
   { href: "/about", label: "About the site" },
   { href: "/editorial-guidelines", label: "Editorial guidelines" },
   { href: "/privacy-policy", label: "Privacy policy" },
+  { href: "/disclaimer", label: "Disclaimer" },
+  { href: "/terms-and-conditions", label: "Terms of use" },
   { href: "/contact", label: "Contact and feedback" }
 ];
 

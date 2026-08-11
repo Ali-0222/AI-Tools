@@ -17,10 +17,10 @@ export function Hero() {
             <SiteLogo href="/" className="pointer-events-none" />
           </div>
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--accent)]">
-            Free Online Tools for Images, Text, PDF and Developers
+            Practical Online Tools for Files, Text and Everyday Web Work
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
-            Free Online Tools for Images, Text, PDF and Developers
+            Practical Online Tools for Files, Text and Everyday Web Work
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-[var(--muted)]">
             Compress images, count words, format JSON, merge PDFs, and handle everyday browser
@@ -43,10 +43,10 @@ export function Hero() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
-            [String(siteTools.length), "Dedicated tool pages"],
-            [String(blogPosts.length), "Supporting guides"],
+            [String(siteTools.length), "Useful tool pages"],
+            [String(blogPosts.length), "Practical guides"],
             accessStat,
-            ["Browser first", "Privacy-aware workflows"]
+            ["Browser first", "Clear privacy notes"]
           ].map(([value, label]) => (
             <div
               key={label}
@@ -63,3 +63,4 @@ export function Hero() {
     </section>
   );
 }
+

@@ -131,7 +131,7 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
               Editorial note
             </p>
             <p className="mt-3 text-[var(--muted)]">
-              Maintained by Toolbee Pro as supporting guidance for the live tools. Articles are
+              Maintained by Toolbee Pro for people using the live tools. Articles are
               updated when workflows, limitations, or related pages need clearer explanation.
             </p>
           </section>
@@ -242,3 +242,4 @@ export default async function BlogDetailPage({ params }: { params: Params }) {
     </main>
   );
 }
+

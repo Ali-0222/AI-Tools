@@ -43,7 +43,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Popular Tools"
               title="Instant tools built for quick everyday tasks"
-              text="Use simple browser-based tools for images, text, PDF files, and developer workflows without extra setup."
+              text="Start with the task you have: a large image, messy text, a PDF set, a JSON payload, or a quick calculation."
             />
             <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {siteTools.map((tool) => (
@@ -55,7 +55,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Tool Categories"
               title="Useful tools for common work, study, and web tasks"
-              text="Browse focused tools for image optimization, text editing, PDF handling, and developer cleanup tasks."
+              text="Find tools by the job you are trying to finish, then open a dedicated page with instructions and related checks."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {[
@@ -75,14 +75,14 @@ export default function HomePage() {
           <section className="card p-6 md:p-8">
             <SectionHeading
               eyebrow="Why This Site"
-              title="Built to be useful before it tries to monetize"
-              text="Each page is meant to solve a real task, explain the workflow, and give users enough context to decide what to do next."
+              title="Made for real tasks, not empty tool pages"
+              text="Each page pairs the working tool with plain guidance so a visitor can understand what changed and whether the result is ready."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               {[
-                "Tool pages include instructions, supporting copy, and related workflows for real tasks.",
-                "Static pages explain ownership, privacy, editorial standards, and how to contact the publisher.",
-                `Internal linking helps users move across ${getToolCountLabel().toLowerCase()} without dead ends.`
+                "Tool pages describe the input, the output, common mistakes, and a sensible next step.",
+                "About, privacy, disclaimer, editorial, and contact pages are visible from the main navigation and footer.",
+                `Internal links connect ${getToolCountLabel().toLowerCase()} so visitors can continue a related task without guessing.`
               ].map((item) => (
                 <div key={item} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-strong)] p-5 text-sm leading-6 text-[var(--muted)]">
                   {item}
@@ -93,8 +93,8 @@ export default function HomePage() {
           <section className="card p-6 md:p-8">
             <SectionHeading
               eyebrow="Trust and Privacy"
-              title="Clear pages for practical everyday workflows"
-              text="The site explains what each tool does, how to use it, what to check before relying on the result, and how to contact the publisher."
+              title="Trust signals that match the tools"
+              text="The copy avoids absolute promises and explains where a result still needs review, especially for files, OCR, health estimates, and rewritten text."
             />
             <div className="mt-6 grid gap-4 md:grid-cols-2">
               {[
@@ -128,8 +128,8 @@ export default function HomePage() {
           <section className="card p-6 md:p-8">
             <SectionHeading
               eyebrow="Why People Use It"
-              title="Designed to be simple, fast, and easy to trust"
-              text="The website keeps common online tasks in one place so users can finish image, text, PDF, and developer work without jumping across multiple services."
+              title="Simple enough for quick jobs, detailed enough to be useful"
+              text="The site keeps common tasks close together while giving each tool its own page, examples, limitations, and related articles."
             />
             <div className="mt-6 space-y-6">
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -204,10 +204,7 @@ export default function HomePage() {
                 Publisher notes
               </p>
               <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-                The site aims to publish pages that have a clear purpose, original utility, and
-                enough supporting information to help visitors finish a task confidently. Policy,
-                privacy, and contact pages are kept accessible from every screen so the publisher is
-                easy to identify and reach.
+                Toolbee Pro is maintained as a practical utility site: working tools first, then guides that explain common mistakes, limits, privacy expectations, and related tasks. Policy, privacy, and contact pages stay easy to reach from the footer.
               </p>
             </div>
           </section>
@@ -217,3 +214,6 @@ export default function HomePage() {
     </main>
   );
 }
+
+
+

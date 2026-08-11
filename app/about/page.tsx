@@ -19,7 +19,7 @@ export default function AboutPage() {
       <SchemaScript schema={buildWebPageSchema({ title, description, path: "/about" })} />
       <StaticPage
         title={`About ${siteConfig.name}`}
-        description="This site was built to offer practical online utilities, helpful supporting content, and a cleaner user experience than thin one-click tool directories."
+        description="Toolbee Pro was built as a practical tools site: useful controls on the page, plain explanations around them, and enough context for visitors to review the result before using it."
       >
         <p>
           {siteConfig.name} focuses on practical utilities for images, text, JSON, calculations,
@@ -49,3 +49,4 @@ export default function AboutPage() {
     </>
   );
 }
+

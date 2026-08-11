@@ -29,16 +29,16 @@ export function ToolLayout({ title, description, children, tips }: ToolLayoutPro
         <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-3">
           {[
             [
-              "Focused workflow",
-              "This page is designed around one clear task so users can complete it without hunting through unrelated screens."
+              "Clear task",
+              "The main control is kept close to the explanation, so visitors can try the tool and understand the result in the same visit."
             ],
             [
               "Review the output",
-              "Generated files, text, calculations, or conversions should be checked before important use."
+              "Files, text, calculations, and conversions can still need a quick human check before you submit or publish them."
             ],
             [
               "More context below",
-              "Keep scrolling for use cases, limitations, related tools, and supporting guidance for this workflow."
+              "The notes below explain common uses, limits, and nearby tools that can help with the next step."
             ]
           ].map(([heading, text]) => (
             <article
@@ -67,3 +67,5 @@ export function ToolLayout({ title, description, children, tips }: ToolLayoutPro
     </main>
   );
 }
+
+

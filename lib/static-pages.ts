@@ -11,6 +11,7 @@ export const staticPageRoutes = [
   "/json-formatter-and-validator-online",
   "/merge-pdf-files-free-online-without-watermark",
   "/privacy-policy",
+  "/terms-and-conditions",
   "/tools",
   "/word-counter-for-students-free"
 ] as const;

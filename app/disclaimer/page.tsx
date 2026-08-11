@@ -5,7 +5,7 @@ import { buildMetadata, buildWebPageSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
 const title = "Disclaimer";
-const description = `Read the disclaimer for ${siteConfig.name} regarding informational use, tool accuracy, and limitation of liability.`;
+const description = `Read the disclaimer for ${siteConfig.name} regarding informational use, tool accuracy, copyrights, image sources, and limitation of liability.`;
 
 export const metadata: Metadata = buildMetadata({
   title,
@@ -38,8 +38,14 @@ export default function DisclaimerPage() {
           users should verify the result independently or consult a qualified professional.
         </p>
         <p>
-          The website owner is not liable for loss, damages, or consequences resulting from the use
-          or inability to use the tools or information provided on the site.
+          Blog images are selected from free-image sources such as Unsplash where possible, with
+          descriptive alt text and visible credit links. Users should not copy images from Google
+          Images or other search results unless they have the right to use them.
+        </p>
+        <p>
+          The website owner is not liable for loss, damages, copyright claims, data issues, or other
+          consequences resulting from the use or inability to use the tools or information provided
+          on the site.
         </p>
       </StaticPage>
     </>
